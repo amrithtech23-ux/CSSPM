@@ -1,4 +1,4 @@
-# app.py - UPDATED VERSION
+# app.py - STRICT FILTERING & COMPLETE TOPIC COVERAGE
 import streamlit as st
 import requests
 import json
@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS styling - UPDATED COLORS
+# Custom CSS styling - UPDATED COLORS (Light Gray Background, Black Text)
 st.markdown("""
 <style>
     /* Main container styling */
@@ -80,9 +80,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Extended SPM Topics from knowledge base - AVOIDING DUPLICATES
+# Extended SPM Topics from knowledge base - FOR RANDOM SUGGESTIONS
 SPM_TOPICS = [
-    # Original topics from sample_topic.txt (1-50)
     "Scope of software project management",
     "Problems and concerns of software project managers",
     "Usual stages of a software project",
@@ -133,8 +132,157 @@ SPM_TOPICS = [
     "Strategic planning exercise for potential developments",
     "Outline plan vs. detailed plan",
     "Planning later stages nearer their start",
-    
-    # NEW topics from Unit-02 (Business Case & Portfolio Management)
+    "Boundary between design and planning",
+    "Design decisions about product form",
+    "ISO 12207 software development activities",
+    "Requirements analysis and elicitation",
+    "Quality requirements in requirements analysis",
+    "System vs. software requirements",
+    "Architecture design for new system components",
+    "Legacy systems and interoperability",
+    "Detailed design of software units",
+    "Coding and testing of software units",
+    "Integration of software components",
+    "Qualification testing for requirements fulfilment",
+    "Installation process for new system",
+    "Standing data setup in installation",
+    "Acceptance support for problem resolution",
+    "Software maintenance as minor software projects",
+    "Plans based on methods of work",
+    "Method vs. plan distinction",
+    "Methodologies as groups of methods",
+    "Building height estimation exercise",
+    "Changes in software project characteristics over decades",
+    "Writing software from scratch in early years",
+    "Programming paradigms inhibiting code reuse",
+    "Customization of existing software as current norm",
+    "Small percentage of new code written today",
+    "Project durations shrinking to few months",
+    "Customer participation in early projects",
+    "Customer representatives in development team today",
+    "Compulsory vs. voluntary users",
+    "Market surveys for voluntary systems",
+    "Focus groups for voluntary systems",
+    "Prototype evaluation for voluntary systems",
+    "Information systems vs. embedded systems",
+    "Embedded systems as real-time or industrial systems",
+    "Software product development vs. software services projects",
+    "Generic software products (horizontal market)",
+    "Domain-specific software products (vertical market)",
+    "Examples of generic products (Windows, Oracle)",
+    "Examples of domain-specific products (BANCS, FINACLE, AspenPlus)",
+    "Growth of available code base",
+    "Outsourced projects and special challenges",
+    "Indian software companies in outsourcing",
+    "Generic product revenue stream vs. one-time outsourcing revenue",
+    "Objective-driven vs. product-driven projects",
+    "Two-stage objective-driven then product-driven projects",
+    "Preliminary design at fixed fee",
+    "Project charter as high-level authorization document",
+    "Project charter outlining objectives, deliverables, resources",
+    "Project sponsor role (champion, monitor, remove obstacles)",
+    "Project charter as unchanging document",
+    "Project plan as dynamic document",
+    "Risk management plan as dynamic document",
+    "Work breakdown structure as dynamic document",
+    "Project charter contents (objectives, scope, schedule, stakeholders, budget, risks)",
+    "Stakeholder categories (internal to team, external within organization, external to both)",
+    "Theory W (win-win) of Boehm and Ross",
+    "Communication plan creation at project start",
+    "Project owners controlling financing",
+    "Objectives as shared intentions for project",
+    "Objectives as postconditions (success statements)",
+    "Project steering committee for setting objectives",
+    "Sub-objectives and goals in project management",
+    "SMART criteria for objectives (Specific, Measurable, Achievable, Relevant, Time-constrained)",
+    "Measures of effectiveness (e.g., mean time between failures)",
+    "Predictive measures (e.g., errors in code inspections)",
+    "Business case and cost-benefit analysis",
+    "Business model for generating benefits",
+    "Project success vs. failure distinction",
+    "Project objectives vs. business objectives",
+    "Project success as benefits exceeding costs",
+    "Delay reducing time for benefits generation",
+    "Broader view including business issues",
+    "Market surveys to reduce business risks",
+    "Competitor analysis to reduce business risks",
+    "Focus groups to reduce business risks",
+    "Prototyping to reduce business risks",
+    "Technical learning benefits across successive projects",
+    "Reusable code as software asset",
+    "Customer relationships built over multiple projects",
+    "Management activities (planning, organizing, staffing, directing, monitoring, controlling, innovating, representing)",
+    "Principal project management processes",
+    "Project initiation stage (initial plan)",
+    "Project monitoring and control",
+    "Project closing stage",
+    "Estimation of cost, duration, effort",
+    "Scheduling based on effort and duration",
+    "Staffing plans",
+    "Risk management (identification, analysis, abatement planning)",
+    "Quality assurance plan",
+    "Configuration management plan",
+    "Plan revision iterations during project",
+    "Management control cycle",
+    "Modelling consequences of potential solutions",
+    "Project plan as dynamic with constant adjustment",
+    "Software development life cycle vs. project management life cycle",
+    "Project life cycle as generic term",
+    "W5HH principle of Barry Boehm",
+    "Bidding processes (RFQ, RFP, RFI, RFT)",
+    "Statement of work in RFQ",
+    "Gold plating and scope creep",
+    "Technical students impatience with project management studies",
+    "UK government spending on ICT contracts vs. roads (£2.3 billion vs. £1.4 billion)",
+    "Department for Work and Pensions spending over £800 million on ICT",
+    "Mismanagement of ICT projects reducing spending on hospitals",
+    "Standish Group analysis of 13,522 projects (2003)",
+    "Programme management for coordinating activities on concurrent jobs",
+    "Exploratory projects making planning difficult",
+    "Routine maintenance procedures documented for consistency and newcomers",
+    "20 developers disproportionately more difficult than 10 due to coordination",
+    "Examples of activities to categorize as projects (newspaper edition, Mars robot, marriage, etc.)",
+    "Amending financial system for common European currency as project example",
+    "Research project into good human-computer interface as project example",
+    "Investigation of user problem with computer system as project example",
+    "Second-year programming assignment as project example",
+    "Writing operating system for new computer as project example",
+    "Installing new version of word processing package as project example",
+    "Temporary sub-organization cutting across existing unit authority",
+    "Project seen as disruptive to others",
+    "Brooks' "No Silver Bullet" essay (1987)",
+    "Software project management as making invisible visible",
+    "Physical systems governed by consistent physical laws",
+    "Organizations exhibiting "organizational stupidity"",
+    "Software expected to change to accommodate other components",
+    "Client project manager delegating technical decisions to contractors",
+    "Book leaning towards technical project managers' concerns",
+    "Feasibility study as part of strategic planning exercise",
+    "PRINCE2 iterative approach to planning",
+    "Annex 1 outline of plan content",
+    "ISO 12207 suggesting strict sequence (alternative iterative approaches in Chapter 4)",
+    "Ambulance dispatch transaction time example",
+    "Training as system requirement (not specifically software)",
+    "Resource requirements for application development costs",
+    "Legacy systems interoperability in architecture design",
+    "Second architecture design process mapping software requirements to components",
+    "Integration combining hardware platforms and user interactions",
+    "Setting system parameters during installation",
+    "User training during installation",
+    "Brightmouth College payroll project conversion stages",
+    "Off-the-shelf package project vs. writing from scratch differences",
+    "Feasibility study steps for customizing existing product",
+    "Devising test cases for each requirement",
+    "Creating test scripts and expected results",
+    "Comparing actual and expected results",
+    "Plan identifying start/end dates, who, tools, materials, information",
+    "Output from one method as input to another",
+    "Object-oriented design as methodology example",
+    "Building height estimation exercise (planning vs. execution)",
+    "Programming paradigms hardly supporting code reuse in early days",
+    "Dynamically linking library routines for code reuse",
+    "Frameworks supporting code reuse",
+    # Unit-02 Topics
     "Contents of a typical business plan",
     "Project portfolio management overview",
     "Evaluation and selection of projects against strategic criteria",
@@ -165,8 +313,7 @@ SPM_TOPICS = [
     "Below-the-line projects and their impact on official portfolios",
     "Advantages of allowing small ad hoc tasks (quick fixes, user satisfaction)",
     "Margin for non-planned work in resource allocation",
-    
-    # NEW topics from Unit-03-04 (Planning & Methodologies)
+    # Unit-03-04 Topics
     "Step Wise project planning framework",
     "PRINCE2 project management standards (OGC sponsored)",
     "Step Wise covering only planning stages (not monitoring/control)",
@@ -216,8 +363,7 @@ SPM_TOPICS = [
     "PFD allowing looping back via rework",
     "Textual description explaining PFD structure",
     "Product instances recognition",
-    
-    # NEW topics from Unit-05-06-07 (Estimation & Scheduling)
+    # Unit-05-06-07 Topics
     "Dangers of unrealistic estimates in software projects",
     "Subjective nature of estimating (underestimating small tasks, overestimating large tasks)",
     "Political implications of software estimation",
@@ -307,8 +453,7 @@ SPM_TOPICS = [
     "Calculating probability of meeting target dates with PERT",
     "Z-value calculation for target dates",
     "Monte Carlo simulation for risk analysis",
-    
-    # NEW topics from Unit-08-09-10-11 (Resource Management & Control)
+    # Unit-08-09-10-11 Topics
     "Resource allocation in Step Wise framework",
     "Activity schedule indicating planned start and completion dates",
     "Resource schedule showing dates and levels of resource requirements",
@@ -459,8 +604,7 @@ SPM_TOPICS = [
     "Acceptance procedures and acceptance testing in contracts",
     "Liquidated damages and penalty clauses in contracts",
     "Alternative dispute resolution for contract disputes",
-    
-    # NEW topics from Unit-12-13-14 (Team Management & Quality)
+    # Unit-12-13-14 Topics
     "Group working enhancement in software projects",
     "Coordination needs analysis for projects",
     "Communication genres for project coordination",
@@ -622,6 +766,420 @@ API_CONFIG = {
     "license": "MIT"
 }
 
+# TOPIC DATABASE - STRICT FILTERING & SCALABLE
+# This dictionary maps keywords to specific topic content.
+# It ensures that searching for "agile" returns ONLY agile content.
+TOPIC_DATABASE = [
+    {
+        "topic": "Agile",
+        "keywords": ["agile", "scrum", "extreme programming", "xp", "dsdm", "atern", "incremental", "sprint", "kanban", "lean"],
+        "content": """🔄 **Agile Software Development Methods**
+
+**Agile Manifesto Principles:**
+• Individuals and interactions over processes and tools
+• Working software over comprehensive documentation
+• Customer collaboration over contract negotiation
+• Responding to change over following a plan
+
+**1. Scrum Framework:**
+• **Sprints**: Time-boxed iterations (1-4 weeks)
+• **Daily Stand-up**: 15-minute meetings for progress tracking
+• **Scrum Roles**: Product Owner, Scrum Master, Development Team
+• **Product Backlog**: Prioritized list of features
+• **Sprint Planning**: Selecting work for upcoming sprint
+• **Sprint Review**: Demonstrating completed work
+• **Sprint Retrospective**: Process improvement discussion
+• **Time-boxed**: Fixed duration sprints
+• **Team Size**: Maximum 10 developers per team
+• **Closure Phase**: Regression testing and user guides
+
+**2. Extreme Programming (XP):**
+• **Collective Code Ownership**: Programs as common property
+• **Pair Programming**: Two developers working together
+• **Test-First Development**: Test cases written before code
+• **Continuous Integration**: Frequent code integration and testing
+• **Refactoring**: Continuously improving code structure
+• **User Stories**: Requirements from customer perspective
+• **On-site Customer**: User representative always available
+• **Small Releases**: Frequent delivery of working software
+• **Sustainable Pace**: 40-hour work week recommended
+• **Coding Standards**: Consistent code style across team
+
+**3. DSDM/Atern (Dynamic Systems Development Method):**
+• **MoSCoW Prioritization**:
+  - Must have (critical requirements)
+  - Should have (important but not vital)
+  - Could have (desirable but not necessary)
+  - Won't have (agreed to omit for now)
+• **Time-boxes**: Fixed periods of 2-6 weeks
+• **Four Cycles**:
+  - Feasibility: Foundation with business case
+  - Exploration: Exploratory prototypes
+  - Engineering: Converting design to components
+  - Deployment: Getting application into operational use
+• **User Involvement**: Active participation throughout
+• **Empowered Teams**: Decision-making authority
+• **Frequent Delivery**: Regular increments of functionality
+
+**4. Incremental Delivery:**
+• **Breaking System**: Into small, deliverable components
+• **Early Benefits**: Each increment delivers value
+• **Feedback Loop**: Early increments improve later stages
+• **Reduced Gold-plating**: Focus on essential features
+• **Value-to-Cost Ratio**: Prioritizing high-value increments
+• **Open Technology Plan**: Standard language, OS, DBMS
+• **Risk Reduction**: Shorter time spans reduce change risk
+• **Cash Flow Improvement**: Early ROI from early delivery
+
+**Agile Advantages:**
+✅ Adapts to changing requirements
+✅ Early and continuous delivery
+✅ Close customer collaboration
+✅ Self-organizing teams
+✅ Sustainable development pace
+
+**Agile Challenges:**
+⚠️ Requires experienced, motivated team
+⚠️ Customer must be actively involved
+⚠️ Less predictable timelines
+⚠️ Documentation may be minimal
+⚠️ Not ideal for safety-critical systems
+
+**Best Suited For:**
+• New product development for competitive markets
+• Projects with uncertain or evolving requirements
+• Small to medium-sized teams (<10 developers)
+• Rapidly changing technology environments
+• Projects where speed to market is critical"""
+    },
+    {
+        "topic": "Waterfall",
+        "keywords": ["waterfall", "cascade", "sequential", "linear", "stage-gate", "traditional model"],
+        "content": """📊 **Waterfall Model (Classical/Stage-Gate Model)**
+
+**Overview:**
+The Waterfall model is a linear, sequential approach to software development where each phase must be completed before the next begins.
+
+**Phases of Waterfall:**
+1. **Requirements Analysis**: Gather and document all requirements
+2. **System Design**: Create architecture and design specifications
+3. **Implementation (Coding)**: Write actual code
+4. **Testing**: Verify system meets requirements
+5. **Deployment**: Install and make operational
+6. **Maintenance**: Fix bugs and make enhancements
+
+**Key Characteristics:**
+• **Limited Iteration**: Each phase completed once (strength)
+• **Natural Milestones**: Clear end points for each phase
+• **Sequential Flow**: No overlapping of phases
+• **Documentation-Heavy**: Extensive documentation at each stage
+• **Stage-Gate Reviews**: Business case reviewed at phase ends
+• **Well-Defined Requirements**: Ideal when requirements are stable
+
+**Advantages:**
+✅ Simple and easy to understand
+✅ Clear milestones and deliverables
+✅ Easy to manage and control
+✅ Works well for stable requirements
+✅ Good documentation produced
+✅ Suitable for regulated industries
+
+**Disadvantages:**
+❌ Inflexible to changing requirements
+❌ Working software produced late
+❌ High risk and uncertainty
+❌ Difficult to go back to previous phases
+❌ Customer sees product only at end
+❌ Not suitable for complex/uncertain projects
+
+**Best Suited For:**
+• Projects with well-defined, stable requirements
+• Short projects with low uncertainty
+• Projects using familiar technology
+• Safety-critical systems requiring documentation
+• Projects with fixed scope and budget
+• Regulatory compliance environments
+
+**When to Avoid:**
+⚠️ Requirements likely to change
+⚠️ High uncertainty or complexity
+⚠️ Need for early delivery
+⚠️ Customer wants frequent feedback
+⚠️ Innovative or research-oriented projects"""
+    },
+    {
+        "topic": "Spiral",
+        "keywords": ["spiral", "boehm model", "risk-driven model", "prototyping"],
+        "content": """🌀 **Spiral Model (Boehm's Risk-Driven Model)**
+
+**Overview:**
+Developed by Barry Boehm (1988), the Spiral model combines iterative development with systematic risk management.
+
+**Four Quadrants per Phase:**
+1. **Determine Objectives**: Identify goals, alternatives, constraints
+2. **Evaluate Alternatives**: Identify and resolve risks
+3. **Develop and Test**: Develop next level of product
+4. **Plan Next Phase**: Review and plan next iteration
+
+**Key Characteristics:**
+• **Incremental Style**: Builds system in increments
+• **Risk Handling**: Primary focus on risk reduction
+• **Tailorable Phases**: Number of phases varies by project
+• **Prototyping**: Buying knowledge to reduce uncertainty
+• **Customer Involvement**: Regular reviews at each spiral
+• **Flexible**: Can escape at end of any activity
+
+**Advantages:**
+✅ High risk management focus
+✅ Early prototyping reduces uncertainty
+✅ Customer feedback at each iteration
+✅ Suitable for large, complex projects
+✅ Flexible and adaptable
+✅ Good for mission-critical systems
+
+**Disadvantages:**
+❌ Complex and expensive
+❌ Requires risk assessment expertise
+❌ Not suitable for small projects
+❌ Can go on indefinitely
+❌ Difficult to manage
+❌ Documentation-heavy
+
+**Best Suited For:**
+• Large-scale, complex projects
+• Mission-critical systems
+• Projects with high risk
+• Long-term projects
+• Projects requiring extensive prototyping"""
+    },
+    {
+        "topic": "Estimation",
+        "keywords": ["estimate", "estimation", "cocomo", "function point", "sloc", "delphi", "size", "effort", "cost"],
+        "content": """📊 **Software Estimation Techniques**
+
+**Key Challenges:**
+• Underestimating small tasks, overestimating large tasks
+• Political implications of estimates
+• Changing technology
+• Lack of homogeneous project experience
+
+**Estimation Methods:**
+1. **Expert Judgement** - Delphi technique
+2. **Analogy-Based** - Case-based reasoning (ANGEL tool)
+3. **Algorithmic Models**:
+   - COCOMO II (Application composition, Early design, Post-architecture)
+   - Function Point Analysis (Albrecht, Mark II, COSMIC-FFP)
+   - SLOC-based estimation
+
+**Important Laws:**
+• Parkinson's Law: Work expands to fill time available
+• Weinberg's Law: Software is always late
+• Brooks' Mythical Man-Month: Adding people to late project makes it later
+
+**COCOMO II Details:**
+• **Scale Factors**: Precedentedness, Flexibility, Risk Resolution, Team Cohesion, Process Maturity
+• **Effort Multipliers**: Product Reliability, Reusability, Platform Difficulty, Personnel Capability, etc.
+• **Stages**: Application Composition, Early Design, Post-Architecture
+
+**Function Point Analysis:**
+• **Albrecht FP**: External Inputs, Outputs, Inquiries, Internal Files, Interface Files
+• **Mark II FP**: Weighted sum of data movements
+• **COSMIC-FFP**: Entries, Exits, Reads, Writes for real-time systems
+
+⚠️ Unrealistic estimates are a major danger in software projects."""
+    },
+    {
+        "topic": "Risk Management",
+        "keywords": ["risk", "danger", "threat", "probability", "mitigation", "contingency", "uncertainty"],
+        "content": """⚠️ **Risk Management & Failure Prevention**
+
+**Top Project Failure Causes (Standish Group):**
+1. Incomplete requirements (43%)
+2. Lack of user involvement (37%)
+3. Resource constraints (32%)
+4. Unrealistic expectations (29%)
+5. Poor risk management (26%)
+
+**Proactive Risk Strategy:**
+✅ **Identify**: Brainstorming, checklists, risk matrix
+✅ **Analyze**: Impact vs. Probability (High/Medium/Low)
+✅ **Plan Responses**:
+   - **Avoid**: Eliminate the threat
+   - **Mitigate**: Reduce probability/impact
+   - **Transfer**: Shift to third party (insurance, outsourcing)
+   - **Accept**: Acknowledge and monitor
+✅ **Monitor**: Update risk register weekly
+
+**Risk Exposure Formula:**
+Risk Exposure = Potential Damage × Probability
+
+**Key Risks:**
+• Personnel shortages
+• Schedule slippage
+• Wrong functions (gold-plating)
+• Technical risks (new technology)
+• Business risks (market changes)
+
+💡 Remember: Risk management is not about eliminating risk, but managing it intelligently."""
+    },
+    {
+        "topic": "Quality Management",
+        "keywords": ["quality", "iso", "testing", "review", "cmm", "reliability", "maintainability"],
+        "content": """✅ **Software Quality Management**
+
+**Quality Models:**
+1. **ISO 9126 Characteristics**:
+   - Functionality, Reliability, Usability, Efficiency, Maintainability, Portability
+
+2. **McCall's Model**:
+   - Correctness, Reliability, Efficiency, Integrity, Usability
+   - Maintainability, Flexibility, Testability, Portability, Reusability, Interoperability
+
+3. **Garvin's Dimensions**:
+   - Performance, Features, Reliability, Conformance, Durability, Serviceability, Aesthetics, Perceived Quality
+
+**Quality Standards:**
+• BS EN ISO 9001:2000 - Quality Management System
+• SEI Capability Maturity Model (CMM) - 5 levels (Initial to Optimizing)
+• TickIT accreditation for software
+
+**Quality Activities:**
+• **Reviews**: More cost-effective than testing (peer review, walkthroughs)
+• **Testing**: Unit, Integration, System, Acceptance
+• **Configuration Management**: Version control, change control
+• **Metrics**: Defect density, review effectiveness, test coverage
+
+💡 Quality must be built into the process, not inspected in at the end."""
+    },
+    {
+        "topic": "Team Management",
+        "keywords": ["team", "leadership", "communication", "belbin", "tuckman", "motivation", "virtual"],
+        "content": """👥 **Team Management & Leadership**
+
+**Team Development Stages (Tuckman & Jensen):**
+1. **Forming** - Ground rules about behavior
+2. **Storming** - Conflicts and leadership exertion
+3. **Norming** - Group identity emergence
+4. **Performing** - Emphasis on tasks at hand
+5. **Adjourning** - Group disbands
+
+**Belbin Team Roles:**
+• **Chair/Coordinator**: Clarifies goals, promotes decisions
+• **Plant**: Creative, solves difficult problems
+• **Monitor-Evaluator**: Strategic, sees all options
+• **Shaper**: Challenging, thrives on pressure
+• **Team Worker**: Cooperative, diplomatic
+• **Resource Investigator**: Extrovert, explores opportunities
+• **Completer-Finisher**: Painstaking, delivers on time
+• **Company Worker**: Disciplined, turns ideas into actions
+• **Specialist**: Technical knowledge
+
+**Leadership Styles:**
+• **Directive Autocrat**: Decides alone, close supervision
+• **Permissive Autocrat**: Decides alone, subordinates have latitude
+• **Directive Democrat**: Participative decisions, close supervision
+• **Permissive Democrat**: Participative decisions, latitude in implementation
+
+**Communication:**
+• Email is principal means in projects
+• Face-to-face critical in early stages
+• 15 minutes needed to achieve 'flow' state
+• IBM research: 100 sq ft per developer, 6-foot partitions
+
+✅ Task-oriented management for inexperienced teams; People-oriented for mature teams."""
+    },
+    {
+        "topic": "Project Planning",
+        "keywords": ["plan", "planning", "schedule", "gantt", "pert", "cpm", "wbs", "float", "critical path"],
+        "content": """📅 **Project Planning & Scheduling**
+
+**Planning Steps:**
+1. Define scope & deliverables
+2. Create Work Breakdown Structure (WBS)
+3. Estimate effort & resources
+4. Develop realistic timeline
+5. Identify risks & mitigation
+6. Establish communication protocols
+
+**Scheduling Techniques:**
+1. **Gantt Charts**: Visual timeline representation
+2. **Critical Path Method (CPM)**:
+   - Forward pass (earliest start/finish)
+   - Backward pass (latest start/finish)
+   - Total float, free float, interfering float
+   - Critical path identification
+3. **PERT**:
+   - Three estimates (optimistic, most likely, pessimistic)
+   - Expected duration: (a + 4m + b)/6
+   - Probability calculations for target dates
+
+**Resource Smoothing:**
+• Adjust activity start dates using float
+• Split non-critical activities (difficult in software)
+• Prioritize: Critical path first, then by total float
+• Burman's priority list for allocation
+
+⚠️ Resource constraints can create new critical paths."""
+    },
+    {
+        "topic": "Configuration Management",
+        "keywords": ["configuration", "change control", "version", "scm", "baseline", "variant", "release"],
+        "content": """🔧 **Configuration & Change Management**
+
+**Configuration Management (SCM):**
+• **Configuration**: Software product state at any point in time
+• **Version**: Configuration at specific point
+• **Revision**: Successive states of configuration item
+• **Baseline**: Formally reviewed and agreed configuration
+• **Variants**: Versions intended to coexist (different platforms)
+
+**Change Control Process:**
+1. Request for Change (RFC) through single authorized channel
+2. Assess products affected by proposed change
+3. Change Control Board (CCB) approval
+4. Configuration librarian maintains master copies
+5. Implement change with check-out/check-in
+6. User acceptance testing for new versions
+
+**Tools:**
+• SCCS, RCS (UNIX text file version control)
+• Delta storage for efficient versioning
+• System accounting for tracking changes
+
+⚠️ Scope creep is a major risk - filter changes through CCB.
+✅ BS EN ISO 9001:1994 requires formal change control."""
+    },
+    {
+        "topic": "Business Case",
+        "keywords": ["business case", "portfolio", "npv", "irr", "roi", "cost-benefit", "payback", "investment"],
+        "content": """💼 **Business Case & Portfolio Management**
+
+**Business Case Components:**
+1. Introduction & background
+2. Proposed project description
+3. Market analysis (demand, competitors)
+4. Organizational infrastructure planning
+5. Benefits identification & valuation
+6. Outline implementation plan
+7. Cost scheduling
+8. Financial case analysis
+
+**Financial Metrics:**
+• **NPV (Net Present Value)**: Considers timing of cash flows
+• **IRR (Internal Rate of Return)**: Percentage return
+• **ROI (Return on Investment)**: Average annual profit / total investment
+• **Payback Period**: Time to recover initial investment
+
+**Portfolio Management:**
+• Evaluate projects against strategic, technical, and economic criteria
+• Balance high-risk/high-reward with low-risk/low-reward projects
+• Use Warren McFarlan's portfolio concept for IS management
+• Maintain single repository for all current projects
+
+✅ Projects must be evaluated on strategic, technical, and economic grounds."""
+    }
+]
+
 def get_random_suggestions(num_suggestions=10):
     """Generate random suggestions from SPM topics"""
     return random.sample(SPM_TOPICS, min(num_suggestions, len(SPM_TOPICS)))
@@ -635,53 +1193,48 @@ def query_qwen_api(prompt, api_key):
         return f"⚠️ Error: {str(e)}\n\nPlease verify API configuration."
 
 def generate_mock_response(prompt):
-    """Generate contextual mock response"""
+    """Generate contextual mock response using STRICT TOPIC MAPPING"""
     prompt_lower = prompt.lower()
     
-    if any(word in prompt_lower for word in ["scope", "definition"]):
-        return "📋 **Scope of Software Project Management**\n\nSoftware project management encompasses planning, organizing, securing, and managing resources to achieve specific project goals. Key areas include:\n• Scope management\n• Time & schedule management\n• Cost & budget control\n• Quality assurance\n• Risk management\n• Stakeholder communication\n\nProper scope definition prevents 'scope creep' - a leading cause of project failure (Standish Group, 2023)."
+    # Check against TOPIC DATABASE for strict filtering
+    best_match = None
+    max_overlap = 0
     
-    elif any(word in prompt_lower for word in ["stakeholder", "objective"]):
-        return "👥 **Stakeholders & Their Objectives**\n\n| Stakeholder | Primary Objective |\n|------------|----------------|\n| Client/Sponsor | ROI, business value |\n| End Users | Usability, functionality |\n| Developers | Clear requirements, feasible tech |\n| Project Manager | On-time, on-budget delivery |\n| QA Team | Quality standards compliance |\n\n✅ Success requires balancing these often-competing objectives through regular communication and documented agreements."
+    for item in TOPIC_DATABASE:
+        # Count how many keywords match the prompt
+        overlap = sum(1 for keyword in item["keywords"] if keyword in prompt_lower)
+        if overlap > max_overlap:
+            max_overlap = overlap
+            best_match = item
+            
+    # If a topic is found, return its content
+    if best_match and max_overlap > 0:
+        return best_match["content"]
     
-    elif any(word in prompt_lower for word in ["plan", "planning", "monitor"]):
-        return "📅 **Planning, Monitoring & Control**\n\n**Essential Planning Steps**:\n1. Define project scope & deliverables\n2. Create Work Breakdown Structure (WBS)\n3. Estimate effort & resources\n4. Develop realistic timeline (Gantt/Agile)\n5. Identify risks & mitigation strategies\n6. Establish communication protocols\n\n**Monitoring Techniques**:\n• Weekly status meetings\n• Burndown charts (Agile)\n• Earned Value Management (EVM)\n• Risk register updates\n\n🔄 Planning should be iterative - revisit assumptions as project evolves."
-    
-    elif any(word in prompt_lower for word in ["risk", "failure", "problem"]):
-        return "⚠️ **Risk Management & Failure Prevention**\n\n**Top Project Failure Causes **(Standish Group)\n1. Incomplete requirements (43%)\n2. Lack of user involvement (37%)\n3. Resource constraints (32%)\n4. Unrealistic expectations (29%)\n5. Poor risk management (26%)\n\n**Proactive Risk Strategy**:\n✅ Identify risks early (brainstorming, checklists)\n✅ Analyze impact & probability (Risk Matrix)\n✅ Plan responses: Avoid, Mitigate, Transfer, Accept\n✅ Monitor triggers & update register weekly\n\n💡 Remember: Risk management is not about eliminating risk, but managing it intelligently."
-    
-    elif any(word in prompt_lower for word in ["success", "criteria", "standish"]):
-        return "🎯 **Project Success Criteria**\n\n**Traditional Triple Constraint**:\n• ✅ On Time\n• ✅ Within Budget\n• ✅ Meets Scope/Quality\n\n**Modern Success Metrics**:\n• Stakeholder satisfaction\n• Business value delivered\n• Team morale & learning\n• Maintainability & scalability\n\n📊 **Standish Group CHAOS Report Insights**:\n• Only ~28% of projects are fully successful\n• 43% exceed budget\n• 82% delivered late\n• Key success factor: Executive support + user involvement\n\n✅ Define success criteria WITH stakeholders during project charter phase."
-    
-    elif any(word in prompt_lower for word in ["business case", "portfolio"]):
-        return "💼 **Business Case & Portfolio Management**\n\n**Business Case Components**:\n1. Introduction & background\n2. Proposed project description\n3. Market analysis (demand, competitors)\n4. Organizational infrastructure planning\n5. Benefits identification & valuation\n6. Outline implementation plan\n7. Cost scheduling\n8. Financial case analysis\n\n**Portfolio Management**:\n• Evaluate projects against strategic, technical, and economic criteria\n• Balance high-risk/high-reward with low-risk/low-reward projects\n• Use Warren McFarlan's portfolio concept for IS management\n• Maintain single repository for all current projects\n\n✅ Projects must be evaluated on strategic, technical, and economic grounds."
-    
-    elif any(word in prompt_lower for word in ["estimate", "estimation", "cocomo", "function point"]):
-        return "📊 **Software Estimation Techniques**\n\n**Key Challenges**:\n• Underestimating small tasks, overestimating large tasks\n• Political implications of estimates\n• Changing technology\n• Lack of homogeneous project experience\n\n**Estimation Methods**:\n1. **Expert Judgement** - Delphi technique\n2. **Analogy-Based** - Case-based reasoning (ANGEL tool)\n3. **Algorithmic Models**:\n   - COCOMO II (Application composition, Early design, Post-architecture)\n   - Function Point Analysis (Albrecht, Mark II, COSMIC-FFP)\n   - SLOC-based estimation\n\n**Important Laws**:\n• Parkinson's Law: Work expands to fill time available\n• Weinberg's Law: Software is always late\n• Brooks' Mythical Man-Month: Adding people to late project makes it later\n\n⚠️ Unrealistic estimates are a major danger in software projects."
-    
-    elif any(word in prompt_lower for word in ["quality", "iso", "testing"]):
-        return "✅ **Software Quality Management**\n\n**Quality Models**:\n1. **ISO 9126 Characteristics**:\n   - Functionality, Reliability, Usability, Efficiency, Maintainability, Portability\n\n2. **McCall's Model**:\n   - Correctness, Reliability, Efficiency, Integrity, Usability\n   - Maintainability, Flexibility, Testability, Portability, Reusability, Interoperability\n\n3. **Garvin's Dimensions**:\n   - Performance, Features, Reliability, Conformance, Durability, Serviceability, Aesthetics, Perceived Quality\n\n**Quality Standards**:\n• BS EN ISO 9001:2000 - Quality Management System\n• SEI Capability Maturity Model (CMM) - 5 levels\n• TickIT accreditation for software\n\n**Quality Activities**:\n• Reviews (more cost-effective than testing)\n• Testing (unit, integration, system, acceptance)\n• Configuration management\n• Change control\n\n💡 Quality must be built into the process, not inspected in at the end."
-    
-    elif any(word in prompt_lower for word in ["team", "leadership", "communication"]):
-        return "👥 **Team Management & Leadership**\n\n**Team Development Stages **(Tuckman & Jensen)\n1. **Forming** - Ground rules about behavior\n2. **Storming** - Conflicts and leadership exertion\n3. **Norming** - Group identity emergence\n4. **Performing** - Emphasis on tasks at hand\n5. **Adjourning** - Group disbands\n\n**Belbin Team Roles**:\n• Chair/Coordinator, Plant (idea generator), Monitor-Evaluator\n• Shaper (directs attention), Team Worker, Resource Investigator\n• Completer-Finisher, Company Worker, Specialist\n\n**Leadership Styles**:\n• Directive Autocrat (decides alone, close supervision)\n• Permissive Autocrat (decides alone, subordinates have latitude)\n• Directive Democrat (participative decisions, close supervision)\n• Permissive Democrat (participative decisions, latitude in implementation)\n\n**Communication**:\n• Email is principal means in projects\n• Face-to-face critical in early stages\n• 15 minutes needed to achieve 'flow' state\n• IBM research: 100 sq ft per developer, 6-foot partitions\n\n✅ Task-oriented management for inexperienced teams; People-oriented for mature teams."
-    
-    elif any(word in prompt_lower for word in ["agile", "scrum", "spiral", "waterfall", "methodology"]):
-        return "🔄 **Development Methodologies**\n\n**Traditional Models**:\n1. **Waterfall Model** (Stage-gate):\n   - Limited iteration as strength\n   - Natural milestones at end of each phase\n   - Ideal for well-defined requirements\n\n2. **Spiral Model** (Boehm):\n   - Incremental style with risk handling\n   - Four quadrants per phase\n   - Tailoring number of phases during execution\n   - Buying knowledge to reduce uncertainty\n\n**Agile Methods**:\n1. **Scrum**:\n   - Sprints (1-4 weeks)\n   - Daily meetings (15 minutes)\n   - Teams max 10 developers\n   - Time-boxed sprints\n\n2. **Extreme Programming **(XP)\n   - Collective mind promotion\n   - Continual integration testing\n   - Test cases before code\n   - User representative on hand\n\n3. **DSDM/Atern**:\n   - MoSCoW classification (Must, Should, Could, Won't have)\n   - Time-boxes (2-6 weeks)\n   - Feasibility, Exploration, Engineering, Deployment cycles\n\n✅ Choose methodology based on project uncertainty, requirements stability, and team size."
-    
-    elif any(word in prompt_lower for word in ["resource", "scheduling", "gantt", "critical path"]):
-        return "📅 **Resource Allocation & Scheduling**\n\n**Resource Categories**:\n• Labour (project manager, analysts, developers)\n• Equipment (workstations, office equipment)\n• Materials (consumables)\n• Space (office space)\n• Services (telecommunications)\n• Time & Money (secondary resources)\n\n**Scheduling Techniques**:\n1. **Gantt Charts** - Visual timeline representation\n2. **Critical Path Method **(CPM)\n   - Forward pass (earliest start/finish)\n   - Backward pass (latest start/finish)\n   - Total float, free float, interfering float\n   - Critical path identification\n\n3. **PERT**:\n   - Three estimates (optimistic, most likely, pessimistic)\n   - Expected duration: (a + 4m + b)/6\n   - Probability calculations for target dates\n\n**Resource Smoothing**:\n• Adjust activity start dates using float\n• Split non-critical activities (difficult in software)\n• Prioritize: Critical path first, then by total float\n• Burman's priority list for allocation\n\n⚠️ Resource constraints can create new critical paths."
-    
-    elif any(word in prompt_lower for word in ["configuration", "change control", "version"]):
-        return "🔧 **Configuration & Change Management**\n\n**Configuration Management **(SCM)\n• Configuration: Software product state at any point in time\n• Version: Configuration at specific point\n• Revision: Successive states of configuration item\n• Baseline: Formally reviewed and agreed configuration\n• Variants: Versions intended to coexist (different platforms)\n\n**Change Control Process**:\n1. Request for Change (RFC) through single authorized channel\n2. Assess products affected by proposed change\n3. Change Control Board (CCB) approval\n4. Configuration librarian maintains master copies\n5. Implement change with check-out/check-in\n6. User acceptance testing for new versions\n\n**Tools**:\n• SCCS, RCS (UNIX text file version control)\n• Delta storage for efficient versioning\n• System accounting for tracking changes\n\n⚠️ Scope creep is a major risk - filter changes through CCB.\n✅ BS EN ISO 9001:1994 requires formal change control."
-    
-    elif any(word in prompt_lower for word in ["contract", "procurement", "outsourcing"]):
-        return "📝 **Contracts & Procurement**\n\n**Contract Types**:\n1. **Fixed Price** - Known customer expenditure\n2. **Time & Materials** - Fixed rate per unit of effort\n3. **Fixed Price per Unit** - Function point based\n\n**Tendering Processes**:\n• **Open Tendering** - Any supplier can bid\n• **Restricted Tendering** - Invited suppliers only\n• **Negotiated Procedure** - Single supplier situations\n\n**Contract Evaluation**:\n• Mandatory vs. desirable requirements\n• Value for money as key criterion\n• Whole lifetime costs consideration\n• ISO 9126 for quality evaluation\n\n**Contract Terms**:\n• Definitions, form of agreement, goods and services\n• Ownership of software and copyright\n• Escrow agreement for source code protection\n• Acceptance procedures and testing\n• Liquidated damages and penalty clauses\n• Alternative dispute resolution\n\n⚠️ Requirements analysis essential before approaching suppliers.\n✅ Legal advice essential for substantial contract sums."
-    
-    elif any(word in prompt_lower for word in ["earned value", "monitoring", "control", "variance"]):
-        return "📈 **Earned Value Analysis & Project Control**\n\n**Key Metrics**:\n• **Planned Value **(PV) - Budgeted cost of work scheduled (BCWS)\n• **Earned Value **(EV) - Budgeted cost of work performed (BCWP)\n• **Actual Cost **(AC) - Actual cost of work performed (ACWP)\n• **Budget at Completion **(BAC) - Total planned budget\n\n**Variance Analysis**:\n• **Schedule Variance**: SV = EV - PV (negative = behind schedule)\n• **Cost Variance**: CV = EV - AC (negative = over budget)\n• **Cost Performance Index**: CPI = EV/AC (>1 = better than planned)\n• **Schedule Performance Index**: SPI = EV/PV\n\n**Forecasting**:\n• **Estimate at Completion**: EAC = BAC/CPI\n• **Time Estimate at Completion**: TEAC = SAC/SPI\n\n**Earned Value Assignment Techniques**:\n• 0/100 technique (nothing until complete)\n• 50/50 technique (50% at start, 50% at finish)\n• 75/25 technique\n• Milestone technique\n\n**Project Control Cycle**:\n1. Monitor progress\n2. Compare with plan\n3. Identify shortfalls (delays, quality, functionality, costs)\n4. Revise plan if necessary\n\n✅ Originated from US Department of Defence."
-    
-    else:
-        return f"🔍 **Regarding: \"{prompt}\"**\n\nThis is an important Software Project Management topic. Key considerations:\n\n1. **Understand context** - Is this for academic study or industry application?\n2. **Reference frameworks** - PMBOK, PRINCE2, Agile/Scrum, ISO 12207\n3. **Apply best practices** - Documentation, communication, iterative planning\n4. **Learn from case studies** - Standish Group, UK National Audit Office reports\n\n💡 Would you like me to elaborate on any specific aspect? Try asking about:\n• Risk management strategies\n• Agile vs. Waterfall methodologies\n• Stakeholder communication plans\n• Project charter essentials\n• Estimation techniques (COCOMO, Function Points)\n• Quality management (ISO 9126, CMM)\n• Team leadership styles\n• Configuration management"
+    # Fallback for unmatched queries
+    return f"""🔍 **Regarding: "{prompt}"**
+
+This is an important Software Project Management topic. 
+
+**Key Considerations:**
+1. **Understand context** - Academic study or industry application?
+2. **Reference frameworks** - PMBOK, PRINCE2, Agile/Scrum, ISO 12207
+3. **Apply best practices** - Documentation, communication, iterative planning
+4. **Learn from case studies** - Standish Group, UK National Audit Office
+
+💡 **Try asking about specific topics:**
+• Agile methods (Scrum, XP, DSDM)
+• Waterfall model
+• Spiral model
+• Risk management
+• Estimation techniques (COCOMO, Function Points)
+• Quality management (ISO 9126, CMM)
+• Team leadership styles
+• Configuration management
+• Earned value analysis
+• Stakeholder management
+• Project planning & scheduling
+• Business case & portfolio management"""
 
 def display_suggestions(suggestions):
     """Display suggestion buttons"""
