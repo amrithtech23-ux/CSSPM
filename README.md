@@ -1,4 +1,4 @@
-# ⚖️ CSSPM - Software Project Management Chatbot
+# ⚖️ Software Project Management Chatbot
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io)
