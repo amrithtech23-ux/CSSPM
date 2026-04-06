@@ -1,7 +1,5 @@
-# app.py - STRICT FILTERING & COMPLETE TOPIC COVERAGE
+# app.py - FIXED VERSION
 import streamlit as st
-import requests
-import json
 import random
 from datetime import datetime
 
@@ -13,29 +11,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS styling - UPDATED COLORS (Light Gray Background, Black Text)
+# Custom CSS styling
 st.markdown("""
 <style>
-    /* Main container styling */
     .main {
         background-color: #f9f9f9;
     }
     
-    /* Bold borders for all text areas */
     div[data-testid="stTextArea"] textarea {
         border: 3px solid #000000 !important;
         border-radius: 8px !important;
-    }
-    
-    /* User input - Light gray background, bold black text */
-    div[data-testid="stTextArea"] textarea {
         background-color: #D3D3D3 !important;
         color: #000000 !important;
         font-weight: bold !important;
         font-size: 16px !important;
     }
     
-    /* Suggestion buttons - Royal blue, bold, bigger */
     div.stButton > button {
         background-color: #4169E1 !important;
         color: white !important;
@@ -48,18 +39,8 @@ st.markdown("""
     
     div.stButton > button:hover {
         background-color: #1E90FF !important;
-        border-color: #000000 !important;
     }
     
-    /* Submit/Reset buttons */
-    div.stButton > button[kind="primary"] {
-        background-color: #4169E1 !important;
-        color: white !important;
-        font-weight: bold !important;
-        font-size: 16px !important;
-    }
-    
-    /* Result display box - Light gray background, bold black text */
     .result-box {
         background-color: #E8E8E8 !important;
         color: #000000 !important;
@@ -71,7 +52,6 @@ st.markdown("""
         line-height: 1.5 !important;
     }
     
-    /* Header */
     h1 {
         color: #4169E1 !important;
         font-weight: bold !important;
@@ -80,7 +60,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Extended SPM Topics from knowledge base - FOR RANDOM SUGGESTIONS
+# SPM Topics - FIXED with proper quote escaping
 SPM_TOPICS = [
     "Scope of software project management",
     "Problems and concerns of software project managers",
@@ -117,7 +97,7 @@ SPM_TOPICS = [
     "Project size and coordination difficulty",
     "Temporary sub-organizations as problematic",
     "Expertise loss when team disperses",
-    "Brooks' characteristics of difficult software projects",
+    "Brooks characteristics of difficult software projects",
     "Invisibility of software progress",
     "Software project management as making invisible visible",
     "Complexity of software vs. physical artefacts",
@@ -233,15 +213,15 @@ SPM_TOPICS = [
     "Statement of work in RFQ",
     "Gold plating and scope creep",
     "Technical students impatience with project management studies",
-    "UK government spending on ICT contracts vs. roads (£2.3 billion vs. £1.4 billion)",
-    "Department for Work and Pensions spending over £800 million on ICT",
+    "UK government spending on ICT contracts vs. roads",
+    "Department for Work and Pensions spending over 800 million pounds on ICT",
     "Mismanagement of ICT projects reducing spending on hospitals",
     "Standish Group analysis of 13,522 projects (2003)",
     "Programme management for coordinating activities on concurrent jobs",
     "Exploratory projects making planning difficult",
     "Routine maintenance procedures documented for consistency and newcomers",
     "20 developers disproportionately more difficult than 10 due to coordination",
-    "Examples of activities to categorize as projects (newspaper edition, Mars robot, marriage, etc.)",
+    "Examples of activities to categorize as projects (newspaper edition, Mars robot, marriage)",
     "Amending financial system for common European currency as project example",
     "Research project into good human-computer interface as project example",
     "Investigation of user problem with computer system as project example",
@@ -250,17 +230,17 @@ SPM_TOPICS = [
     "Installing new version of word processing package as project example",
     "Temporary sub-organization cutting across existing unit authority",
     "Project seen as disruptive to others",
-    "Brooks' "No Silver Bullet" essay (1987)",
+    "Brooks No Silver Bullet essay (1987)",
     "Software project management as making invisible visible",
     "Physical systems governed by consistent physical laws",
-    "Organizations exhibiting "organizational stupidity"",
+    "Organizations exhibiting organizational stupidity",
     "Software expected to change to accommodate other components",
     "Client project manager delegating technical decisions to contractors",
-    "Book leaning towards technical project managers' concerns",
+    "Book leaning towards technical project managers concerns",
     "Feasibility study as part of strategic planning exercise",
     "PRINCE2 iterative approach to planning",
     "Annex 1 outline of plan content",
-    "ISO 12207 suggesting strict sequence (alternative iterative approaches in Chapter 4)",
+    "ISO 12207 suggesting strict sequence",
     "Ambulance dispatch transaction time example",
     "Training as system requirement (not specifically software)",
     "Resource requirements for application development costs",
@@ -282,497 +262,168 @@ SPM_TOPICS = [
     "Programming paradigms hardly supporting code reuse in early days",
     "Dynamically linking library routines for code reuse",
     "Frameworks supporting code reuse",
-    # Unit-02 Topics
-    "Contents of a typical business plan",
-    "Project portfolio management overview",
-    "Evaluation and selection of projects against strategic criteria",
-    "Evaluation and selection of projects against technical criteria",
-    "Evaluation and selection of projects against economic criteria",
-    "Cost-benefit evaluation techniques for competing proposals",
-    "Business risk evaluation in projects",
-    "Grouping individual projects into programmes",
-    "Managing programme implementation for planned benefits",
-    "ICT infrastructure project as platform for subsequent projects",
-    "Non-financial benefits (alleviation of pain, preservation of life)",
-    "Business case as feasibility study or project justification",
-    "Introduction and background in business case",
-    "Proposed project description in business case",
-    "Market analysis in business case (demand, competitors)",
-    "Organizational and operational infrastructure planning",
-    "Benefits identification and valuation in business case",
-    "Outline implementation plan and milestones",
-    "Cost scheduling and uncertainty in early estimates",
-    "Financial case analysis methods",
-    "Project risk vs. business risk distinction",
-    "Portfolio definition, management, and optimization",
-    "Warren McFarlan portfolio concept for information systems",
-    "Single repository for all current projects",
-    "New product development (NPD) vs. renewal projects",
-    "NPD projects attracting funding more easily",
-    "Portfolio optimization balancing high-risk/high-reward and low-risk/low-reward projects",
-    "Below-the-line projects and their impact on official portfolios",
-    "Advantages of allowing small ad hoc tasks (quick fixes, user satisfaction)",
-    "Margin for non-planned work in resource allocation",
-    # Unit-03-04 Topics
-    "Step Wise project planning framework",
-    "PRINCE2 project management standards (OGC sponsored)",
-    "Step Wise covering only planning stages (not monitoring/control)",
-    "Traditional project planning flexibility vs. standardization",
-    "Brigette (Brightmouth College payroll) case study",
-    "Amanda (IOE annual maintenance contracts) case study",
-    "Recording equipment details for annual maintenance contracts",
-    "Central coordinator allocating jobs with mobile phone notifications",
-    "Outline planning before detailed planning principle",
-    "Project selection in portfolio management context",
-    "Project scope and objectives identification",
-    "Establishing a single project authority for unity of purpose",
-    "Stakeholder analysis and identification",
-    "Modifying objectives based on stakeholder analysis (Theory W)",
-    "Communication methods establishment (communications plan)",
-    "BACS (Bankers Automated Clearing Scheme) contact point",
-    "Project infrastructure identification",
-    "Enterprise architecture for technical strategic decisions",
-    "ERP system module for college financial processing",
-    "Installation standards and procedures",
-    "Change control and configuration management standards",
-    "Measurement programme for statistics collection",
-    "Timesheets for recording hours on individual tasks",
-    "Structured systems analysis and design method",
-    "PRINCE2 modelled project management guidelines",
-    "Written user agreement before work",
-    "Peer review and independent testing",
-    "Error log and user problem log",
-    "Informal Monday meetings and monthly progress reviews",
-    "Project team organization (business analysts vs. developer pool)",
-    "Objective-driven vs. product-driven projects",
-    "Safety-critical systems (human life threatened)",
-    "High-level project risks identification",
-    "Iterative approach for analysis reports with marketing analyst feedback",
-    "User requirements concerning implementation",
-    "BS EN ISO 9001:2000 / TickIT accreditation",
-    "Development methodology and life-cycle approach selection",
-    "Questionnaire surveys for novel problem domains",
-    "Function points for system size estimation",
-    "Project products (deliverables and intermediate products)",
-    "Product Breakdown Structure (PBS)",
-    "Product Description (name, purpose, derivation, composition, form, standards, quality criteria)",
-    "Products as persons (trained user)",
-    "Common error: identifying activities as products",
-    "Product Flow Diagram (PFD)",
-    "Oval notation for products used but not created",
-    "PFD allowing looping back via rework",
-    "Textual description explaining PFD structure",
-    "Product instances recognition",
-    # Unit-05-06-07 Topics
-    "Dangers of unrealistic estimates in software projects",
-    "Subjective nature of estimating (underestimating small tasks, overestimating large tasks)",
-    "Political implications of software estimation",
-    "Independent estimating group to avoid political bias",
-    "Changing technology as a difficulty in estimation",
-    "Lack of homogeneity of project experience",
-    "ISO 12207 standard for standardizing estimation terminology",
-    "Productivity calculation in SLOC per work-month",
-    "Programmer productivity variation (7 to 150 SLOC/day)",
-    "Strategic planning estimates for project portfolio management",
-    "Feasibility study estimates confirming benefits justify costs",
-    "System specification estimates for design proposals",
-    "Evaluation of suppliers' proposals using estimates",
-    "Parkinson's Law in software estimation",
-    "Weinberg's Law (software always late)",
-    "Effort vs. duration estimation parameters",
-    "Person-month (PM) as effort measurement unit",
-    "Project size as independent variable, effort as dependent variable",
-    "Source Lines of Code (SLOC) as size metric",
-    "Function Points (FP) as size metric",
-    "No precise definition of SLOC as a shortcoming",
-    "Difficulty estimating SLOC at project start",
-    "SLOC as only a code measure (ignores other life cycle activities)",
-    "Programmer-dependent nature of SLOC",
-    "SLOC does not consider code complexity",
-    "Mythical Man-Month concept (Brooks)",
-    "Communication overhead increasing as square of team size",
-    "Adding manpower to a late project makes it later",
-    "Algorithmic models for effort estimation",
+    # Agile and Development Methodologies
+    "Agile software development methods",
+    "Scrum framework",
+    "Extreme Programming (XP)",
+    "DSDM Atern (Dynamic Systems Development Method)",
+    "Incremental delivery",
+    "Waterfall model (stage-gate)",
+    "Spiral model (Boehm)",
+    "Prototyping approaches",
+    "Rapid Application Development (RAD)",
+    "MoSCoW classification (Must have, Should have, Could have, Won't have)",
+    "Time-boxing in development",
+    "Iterative development",
+    # Estimation Topics
+    "Software estimation techniques",
+    "COCOMO II model",
+    "Function point analysis",
+    "Source lines of code (SLOC) estimation",
     "Expert judgement in estimation",
-    "Estimating by analogy (case-based reasoning)",
-    "Parkinson method (effort available becomes estimate)",
-    "Price to win estimation",
-    "Top-down vs. bottom-up estimating",
-    "Work Breakdown Structure (WBS) for bottom-up estimating",
-    "Procedural code-oriented bottom-up approach",
-    "Estimating SLOC of each module",
-    "Complexity and technical difficulty factors in estimation",
-    "COCOMO II parametric productivity model",
-    "COCOMO81 organic, semi-detached, embedded modes",
-    "COCOMO II application composition stage",
-    "COCOMO II early design stage",
-    "COCOMO II post-architecture stage",
-    "Object points for application composition estimation",
-    "COCOMO II scale factors (precedentedness, flexibility, risk resolution, team cohesion, process maturity)",
-    "COCOMO II effort multipliers",
-    "Albrecht Function Point Analysis",
-    "External input types in function points",
-    "External output types in function points",
-    "External inquiry types in function points",
-    "Logical internal file types in function points",
-    "External interface file types in function points",
-    "IFPUG file type complexity tables",
-    "Technical complexity adjustment (TCA) in function points",
-    "Converting function points to lines of code by language",
-    "Mark II Function Points (Symons)",
-    "COSMIC Full Function Points for real-time systems",
-    "COSMIC data movements (entries, exits, reads, writes)",
-    "Capers Jones estimating rules of thumb",
-    "SLOC to function point equivalence per language",
-    "Project duration estimation using function points raised to power 0.4",
-    "Rate of requirements creep (2% per month)",
-    "Cost estimation from effort and overhead costs",
-    "Staffing pattern and Rayleigh-Norden curve",
-    "Putnam's staffing pattern for software projects",
-    "Effect of schedule compression on effort (Putnam's fourth power law)",
-    "Limit of schedule compression (75% of nominal time)",
-    "Activity planning objectives (feasibility, resource allocation, costing, motivation, coordination)",
-    "Identifying activities (activity-based, product-based, hybrid approaches)",
-    "Work Breakdown Structure (WBS) with levels (project, deliverables, components, work-packages, tasks)",
-    "Product Breakdown Structure (PBS) in PRINCE2",
-    "Product Flow Diagram (PFD) for sequencing",
-    "USDP artifacts and workflows",
-    "Sequencing vs. scheduling activities",
-    "Bar charts (Gantt charts) for project plans",
-    "Network planning models (CPM, PERT, precedence networks)",
-    "Activity-on-node vs. activity-on-arrow networks",
-    "Dummy activities in activity-on-arrow networks",
-    "Forward pass for earliest start/finish dates",
-    "Backward pass for latest start/finish dates",
-    "Total float, free float, and interfering float",
-    "Critical path identification",
-    "Shortening project duration by reducing critical path activities",
-    "Activity standard deviation in PERT",
-    "PERT three estimates (optimistic, most likely, pessimistic)",
-    "PERT expected duration formula (a + 4m + b)/6",
-    "Calculating probability of meeting target dates with PERT",
-    "Z-value calculation for target dates",
-    "Monte Carlo simulation for risk analysis",
-    # Unit-08-09-10-11 Topics
-    "Resource allocation in Step Wise framework",
-    "Activity schedule indicating planned start and completion dates",
-    "Resource schedule showing dates and levels of resource requirements",
-    "Cost schedule showing planned cumulative expenditure",
-    "Labour as a resource category (project manager, analysts, developers)",
-    "Equipment as a resource category (workstations, office equipment)",
-    "Materials as a resource category (consumables like disks)",
-    "Space as a resource category (office space for additional staff)",
-    "Services as a resource category (telecommunications services)",
-    "Time as a resource offset against other primary resources",
-    "Money as a secondary resource (used to buy other resources)",
-    "Identifying resource requirements by considering each activity",
-    "Project infrastructure resources (project manager, office space)",
-    "Resource requirements list comprehensiveness",
-    "Mapping resource requirements onto activity plan",
-    "Resource histogram for visualizing resource distribution",
-    "Earliest start date scheduling creating peaked resource histograms",
-    "Cost of changing resource levels over time (recruitment, familiarization)",
-    "Idle staff time between specification and design stages",
-    "Smoothing resource histograms by adjusting activity start dates",
-    "Splitting non-critical activities to fill resource troughs",
-    "Difficulty of splitting tasks in software projects",
-    "Resource smoothing by project planning software tools",
-    "Prioritizing activities for resource allocation (critical path first)",
-    "Total float priority for resource allocation",
-    "Burman's priority list for resource allocation",
-    "Shortest critical activity priority rule",
-    "Critical activities priority rule",
-    "Shortest non-critical activity priority rule",
-    "Non-critical activity with least float priority rule",
-    "Resource smoothing not always possible within planned timescales",
-    "Resource constraints creating new critical paths",
-    "Resource-linked criticalities in large projects",
-    "Cost comparison between additional staff and delayed delivery",
-    "Allocating individuals to activities as early as possible",
-    "Availability as factor in allocating individuals to tasks",
-    "Criticality of activities influencing staff allocation",
-    "Risk assessment guiding staff allocation decisions",
-    "Allocating most experienced staff to highest risk activities",
-    "Project control cycle (monitoring, comparison, revision)",
-    "Four types of project shortfall (delays, quality, functionality, costs)",
-    "Project steering committee responsibility for progress",
-    "Project reporting structures (team leaders to project manager to steering committee)",
-    "PRINCE2 Project Assurance function",
-    "Categories of reporting (oral/written, formal/informal, regular/ad hoc)",
-    "Weekly progress meetings with formal written minutes",
-    "End-of-stage review meetings",
-    "Exception reports for significant deviations",
-    "Change reports for requirement modifications",
-    "Objective and tangible information for assessing progress",
-    "Checkpoints in activity plan (regular or event-tied)",
-    "Weekly reporting for individual developers",
-    "Review points or control points for major progress reviews",
-    "PRINCE2 End Stage Assessment",
-    "Difficulty forecasting partially completed activities",
-    "In-activity milestones (e.g., first successful compilation)",
-    "Weekly timesheets for resource usage information",
-    "99% complete phenomenon in partial completion reporting",
-    "Red/amber/green (RAG) traffic-light reporting",
-    "Review as cost-effective defect removal mechanism",
-    "Review identifying deviation from standards",
-    "Review as learning opportunity for participants",
-    "Review roles (moderator, recorder, reviewers)",
-    "Moderator responsibilities (scheduling, convening, leading review sessions)",
-    "Recorder role in documenting defects and effort data",
-    "Review process activities (planning, preparation, meeting, rework, follow-up)",
-    "Review team size between five and seven members",
-    "Author of preceding work product as reviewer",
-    "User of work product under review as reviewer",
-    "Peers of author as reviewers",
-    "Review preparation log for individual defect recording",
-    "Review log for defects agreed by author",
-    "Review summary report with total defects and time spent",
-    "Gantt chart for tracking project progress",
-    "Today cursor on Gantt chart for visual progress indication",
-    "Slip chart for striking visual indication of schedule variations",
-    "Slip line bending indicating variation from plan",
-    "Timeline chart for recording target changes over project duration",
-    "Planned time vs. elapsed time on timeline chart",
-    "Cumulative expenditure chart for cost monitoring",
-    "Projected future costs adding to actual expenditure",
-    "Earned value analysis originating from US Department of Defence",
-    "Planned value (PV) or budgeted cost of work scheduled (BCWS)",
-    "Earned value (EV) or budgeted cost of work performed (BCWP)",
-    "0/100 technique for earned value assignment",
-    "50/50 technique for earned value assignment",
-    "75/25 technique for earned value assignment",
-    "Milestone technique for earned value assignment",
-    "Baseline budget creation for earned value analysis",
-    "Actual cost (AC) or actual cost of work performed (ACWP)",
-    "Schedule variance (SV = EV - PV)",
-    "Time variance (TV) as difference between planned and actual achievement time",
-    "Cost variance (CV = EV - AC)",
-    "Cost performance index (CPI = EV/AC)",
-    "Schedule performance index (SPI = EV/PV)",
-    "Estimate at completion (EAC = BAC/CPI)",
-    "Time estimate at completion (TEAC = SAC/SPI)",
-    "Prioritizing monitoring (critical path activities, high-risk activities)",
-    "Activities with no free float requiring close monitoring",
-    "Activities using critical resources requiring high monitoring level",
-    "Shortening critical path to bring project back on target",
-    "Adding resources (especially staff) to speed up critical activities",
-    "Increasing use of current resources (overtime, weekend access)",
-    "Reallocating staff to critical activities",
-    "Reducing scope of functionality to meet deadlines",
-    "Reducing quality-related activities (e.g., curtailing system testing)",
-    "Reconsidering precedence requirements to overcome constraints",
-    "Subdividing activities to start components earlier",
-    "Maintaining business case when revising project plans",
-    "Exception planning and exception reports in PRINCE2",
-    "Change control for requirements modifications",
-    "Baselining products to freeze them for further development",
-    "Change control procedures (request for change - RFC)",
-    "Single authorized channel for change requests",
-    "Change control board (CCB) for approving changes",
-    "Configuration librarian role in change control",
-    "Central repository of master copies of project documentation",
-    "Scope creep in system development",
-    "Software configuration management (SCM) for tracking changes",
-    "Configuration of software product at any point in time",
-    "Version as configuration at a specific point in time",
-    "Revision as successive states of a configuration item",
-    "Baseline as formally reviewed and agreed configuration",
-    "Variants as versions intended to coexist (different platforms)",
-    "Concurrent access problems without configuration management",
-    "Undoing changes with configuration management",
-    "System accounting for tracking who made what change",
-    "Release management for systematizing new software releases",
-    "Open source configuration management tools (SCCS, RCS)",
-    "Delta storage for efficient version storage",
-    "Check-out and check-in facilities in configuration management",
-    "Types of contracts (fixed price, time and materials, fixed price per unit)",
-    "Fixed price contracts with known customer expenditure",
-    "Time and materials contracts with fixed rate per unit of effort",
-    "Fixed price per delivered unit contracts (function point based)",
-    "Open tendering process for contractor selection",
-    "Restricted tendering process with invited suppliers",
-    "Negotiated procedure for single supplier situations",
-    "Requirements analysis before approaching suppliers",
-    "Mandatory vs. desirable requirements in contract documents",
-    "Evaluation plan for proposal assessment",
-    "ISO 9126 standard for quality evaluation",
-    "Value for money as key contract selection criterion",
-    "Whole lifetime costs in contract evaluation",
-    "Contract terms (definitions, form of agreement, goods and services)",
-    "Ownership of software and copyright in contracts",
-    "Escrow agreement for source code protection",
-    "Acceptance procedures and acceptance testing in contracts",
-    "Liquidated damages and penalty clauses in contracts",
-    "Alternative dispute resolution for contract disputes",
-    # Unit-12-13-14 Topics
-    "Group working enhancement in software projects",
-    "Coordination needs analysis for projects",
-    "Communication genres for project coordination",
-    "Communication plan documentation",
-    "Team structures evaluation",
+    "Analogy-based estimation",
+    "Delphi technique",
+    "Parkinson's Law in estimation",
+    "Weinberg's Law (software always late)",
+    "Mythical Man-Month concept",
+    "Bottom-up vs. top-down estimating",
+    "Work Breakdown Structure (WBS)",
+    "Effort vs. duration estimation",
+    "Person-month as effort unit",
+    "Productivity calculation",
+    "Algorithmic models for estimation",
+    "COSMIC Full Function Points",
+    "Mark II Function Points",
+    "Capers Jones estimating rules",
+    "Putnam's staffing pattern",
+    "Rayleigh-Norden curve",
+    # Risk Management
+    "Risk management strategies",
+    "Risk identification techniques",
+    "Risk analysis and assessment",
+    "Risk mitigation planning",
+    "Risk register maintenance",
+    "Probability impact matrix",
+    "Risk exposure calculation",
+    "Proactive vs. reactive risk management",
+    "Boehm's top 10 software risks",
+    "Risk reduction leverage",
+    # Quality Management
+    "Software quality management",
+    "ISO 9126 quality characteristics",
+    "McCall's quality model",
+    "Garvin's quality dimensions",
+    "CMM (Capability Maturity Model)",
+    "Quality assurance activities",
+    "Software reviews",
+    "Testing strategies",
+    "Configuration management",
+    "Change control procedures",
+    # Team Management
+    "Team development stages (Tuckman and Jensen)",
+    "Belbin team roles",
     "Leadership styles in project management",
+    "Communication in projects",
     "Co-located vs. dispersed teams",
-    "Project team as temporary grouping of individuals",
-    "Social roles in team effectiveness",
-    "Tasks best done by individuals vs. groups",
-    "Coordination through communication",
-    "Communication genres beyond technologies",
-    "Proactive central direction in projects",
-    "Tuckman and Jensen team development stages (forming, storming, norming, performing, adjourning)",
-    "Team-building exercises and outdoor activities",
-    "Belbin team role classification",
-    "Chair role in Belbin model",
-    "Plant role (idea generator) in Belbin model",
-    "Monitor-evaluator role in Belbin model",
-    "Shaper role (worrier, directs attention) in Belbin model",
-    "Team worker role (jollying people along)",
-    "Resource investigator role in Belbin model",
-    "Completer-finisher role in Belbin model",
-    "Company worker role in Belbin model",
-    "Imbalance of role types causing team problems",
-    "Two or more shapers without chair causing stormy atmosphere",
-    "Plants and specialists without shapers causing no implementation",
-    "Additive group tasks (e.g., gang clearing snow)",
-    "Compensatory group tasks (pooling judgements)",
-    "Disjunctive group tasks (one correct answer)",
-    "Conjunctive group tasks (progress by slowest performer)",
-    "Social loafing in group tasks",
-    "Structured vs. unstructured decisions",
-    "Risk and uncertainty in decision making",
-    "Faulty heuristics as mental obstacle to decision making",
-    "Escalation of commitment in decision making",
-    "Information overload as decision obstacle",
-    "Participatory decision making with end-users",
-    "Group decision making with complementary skills",
-    "Brainstorming techniques for group problem solving",
-    "JAD (Joint Application Development) for user involvement",
-    "Risky shift in group decisions",
-    "Delphi technique for expert judgement without face-to-face meetings",
-    "Delphi technique advantages for geographically dispersed experts",
-    "Team heedfulness and collective mind",
-    "Egoless programming concept",
+    "Motivation and morale",
+    "Group decision making",
+    "Brainstorming techniques",
+    "JAD (Joint Application Development)",
     "Chief programmer team structure",
-    "Co-pilot role in chief programmer team",
-    "Program clerk role in chief programmer team",
-    "New York Times data bank project using chief programmer concept",
-    "Program librarian in chief programmer team",
-    "Information overload danger for chief programmer",
-    "Staff dissatisfaction in chief programmer teams",
-    "Scrum software development process",
-    "Scrum chief architect role",
-    "Scrum sprints (one to four weeks)",
-    "Scrum daily meetings (15 minutes)",
-    "Scrum teams working in parallel on different sprints",
-    "Scrum time-boxed sprints",
-    "Scrum closure phase for regression testing and user guides",
-    "AG Communications Scrum implementation",
-    "Functional department structure",
-    "Project department structure",
-    "Matrix department structure",
-    "Functional format advantages (ease of staffing, job specialization)",
-    "Functional format producing good quality documentation",
-    "Functional format handling manpower turnover effectively",
-    "Technical ladder career path in functional organizations",
-    "Project format for task-oriented teams",
-    "Strong vs. weak matrix organizations",
-    "Multiplicity of authority causing conflicts in matrix",
+    "Scrum team organization",
     "Democratic team structure",
-    "Mixed control team structure",
-    "Single point failure in chief programmer team",
-    "Coordination dependencies in organizations",
-    "Shared resources as coordination dependency",
-    "Producer-customer (right time) relationships",
-    "Task-subtask dependencies",
-    "Accessibility (right place) dependencies",
-    "Usability (right thing) dependencies",
-    "Fit requirements (component integration)",
-    "McChesney and Gallagher research on coordination practices",
-    "Go-between role in project coordination",
-    "Email as principal communication means in projects",
-    "Copying emails to keep stakeholders in loop",
-    "Dispersed and virtual teams",
-    "Flow (deep concentration) for creative work",
-    "15 minutes needed to achieve flow state",
-    "IBM research on ideal developer workspace (100 square feet, 6-foot partitions)",
-    "Noise levels linked to software defects",
-    "Home working for software developers",
-    "Offshore staff as dispersed team members",
-    "Advantages of dispersed working (lower costs, flexible staff, different time zones)",
-    "Challenges of dispersed working (specification, coordination, trust)",
-    "Communication genres time/place constraints (same time/different time, same place/different place)",
-    "Telephone as same time/different place communication",
-    "Instant messaging as same time/different place communication",
-    "Email as different time/different place communication",
-    "Voicemail as different time/different place communication",
-    "Documents as different time/different place communication",
-    "Early project stages benefiting from same time/same place meetings",
-    "Intermediate design stages using teleconferencing",
-    "Implementation stages using email for information exchange",
-    "Communication plans with stakeholder lists and communication events",
-    "Leadership as ability to influence others",
-    "Position power (coercive, connection, legitimate, reward)",
-    "Personal power (expert, information, referent)",
-    "Directive autocrat leadership style",
-    "Permissive autocrat leadership style",
-    "Directive democrat leadership style",
-    "Permissive democrat leadership style",
-    "Task-oriented vs. people-oriented management",
-    "Task-oriented management effective with inexperienced teams",
-    "People-oriented management for mature team members",
-    "Software quality importance for users and developers",
-    "Quality measurement methods",
-    "Process quality monitoring",
-    "External quality standards for supplier software",
-    "Increasing criticality of software",
-    "Accumulating errors during software development",
-    "BS ISO/IEC 15939:2007 for measuring process",
-    "Direct vs. indirect quality measures",
-    "Quality specification components (definition, scale, test, acceptable range, target range)",
-    "Reliability measurements (availability, mean time between failures, failure on demand)",
-    "Maintainability components (changeability, analysisability)",
-    "Garvin's quality dimensions (performance, features, reliability, conformance, durability, serviceability, aesthetics, perceived quality)",
-    "McCall's quality model (correctness, reliability, efficiency, integrity, usability, maintainability, flexibility, testability, portability, reusability, interoperability)",
-    "Dromey's quality model (correctness, internal characteristics, contextual characteristics, descriptive properties)",
-    "Boehm's quality model (as-is utility, maintainability, portability)",
-    "ISO 9126 quality characteristics (functionality, reliability, usability, efficiency, maintainability, portability)",
-    "Functionality sub-characteristics (suitability, accuracy, interoperability, compliance, security)",
-    "Reliability sub-characteristics (maturity, fault tolerance, recoverability, compliance)",
-    "Usability sub-characteristics (understandability, learnability, operability, attractiveness, compliance)",
-    "Efficiency sub-characteristics (time behaviour, resource utilization, compliance)",
-    "Maintainability sub-characteristics (analysisability, changeability, stability, testability, compliance)",
-    "Portability sub-characteristics (adaptability, installability, coexistence, replaceability, compliance)",
-    "Mapping quality measurements to user satisfaction ratings",
-    "Product metrics vs. process metrics",
-    "Product vs. process quality management",
-    "Entry requirements for process steps",
-    "Implementation requirements for process steps",
-    "Exit requirements for process steps",
-    "BS EN ISO 9001:2000 quality management system",
-    "ISO 9000 series for quality systems certification",
-    "ISO 9001 describing QMS for product creation",
-    "ISO 9004 for process improvement",
-    "Stephen Halliday criticism of ISO 9000 standards",
-    "Means-ends inversion in quality preoccupation",
-    "SEI capability maturity model (CMM)",
-    "CMM five maturity levels (Initial, Repeatable, Defined, Managed, Optimizing)"
+    "Matrix organization",
+    "Functional organization",
+    # Planning and Scheduling
+    "Project planning frameworks",
+    "Step Wise planning",
+    "PRINCE2 methodology",
+    "Activity planning",
+    "Gantt charts",
+    "Critical Path Method (CPM)",
+    "PERT analysis",
+    "Network planning models",
+    "Resource allocation",
+    "Resource smoothing",
+    "Resource histograms",
+    "Float calculation (total, free, interfering)",
+    "Critical path identification",
+    "Precedence networks",
+    "Activity-on-node diagrams",
+    "Earned value analysis",
+    "Schedule variance",
+    "Cost variance",
+    "Performance indices (CPI, SPI)",
+    # Business Case and Portfolio
+    "Business case development",
+    "Portfolio management",
+    "Cost-benefit analysis",
+    "Net Present Value (NPV)",
+    "Internal Rate of Return (IRR)",
+    "Return on Investment (ROI)",
+    "Payback period",
+    "Discounted cash flow",
+    "Risk-adjusted NPV",
+    "Sensitivity analysis",
+    "Decision trees",
+    "Programme management",
+    "Benefits management",
+    "Strategic project selection",
+    # Contracts and Procurement
+    "Contract types in software projects",
+    "Fixed price contracts",
+    "Time and materials contracts",
+    "Tendering processes",
+    "Supplier selection",
+    "Contract negotiation",
+    "Service level agreements",
+    "Outsourcing management",
+    # Monitoring and Control
+    "Project monitoring techniques",
+    "Progress reporting",
+    "Milestone tracking",
+    "Traffic-light reporting (RAG)",
+    "Exception reporting",
+    "Performance measurement",
+    "Baseline management",
+    "Change management",
+    "Scope control",
+    "Quality control",
+    # Miscellaneous Advanced Topics
+    "Virtual teams management",
+    "Offshore development",
+    "Knowledge management",
+    "Lessons learned",
+    "Post-implementation review",
+    "Project closure",
+    "Stakeholder management",
+    "Requirements engineering",
+    "Systems analysis",
+    "Design methodologies",
+    "Software architecture",
+    "Integration testing",
+    "User acceptance testing",
+    "Deployment strategies",
+    "Maintenance strategies",
+    "Technical debt management",
+    "Agile transformation",
+    "DevOps practices",
+    "Continuous integration",
+    "Continuous delivery"
 ]
 
 # API Configuration
 API_CONFIG = {
     "api_key": "CSSPM2K6",
-    "base_url": "https://api.qwen.ai/v1",
-    "model": "qwen-chat",
     "repository": "CSSPM",
     "license": "MIT"
 }
 
-# TOPIC DATABASE - STRICT FILTERING & SCALABLE
-# This dictionary maps keywords to specific topic content.
-# It ensures that searching for "agile" returns ONLY agile content.
+# Topic Database with detailed content
 TOPIC_DATABASE = [
     {
         "topic": "Agile",
-        "keywords": ["agile", "scrum", "extreme programming", "xp", "dsdm", "atern", "incremental", "sprint", "kanban", "lean"],
+        "keywords": ["agile", "scrum", "extreme programming", "xp", "dsdm", "atern", "incremental", "sprint", "kanban", "lean", "agile manifesto"],
         "content": """🔄 **Agile Software Development Methods**
 
 **Agile Manifesto Principles:**
@@ -1187,7 +838,6 @@ def get_random_suggestions(num_suggestions=10):
 def query_qwen_api(prompt, api_key):
     """Query Qwen API with fallback mock response"""
     try:
-        # Mock response for demonstration (uncomment API call when ready)
         return generate_mock_response(prompt)
     except Exception as e:
         return f"⚠️ Error: {str(e)}\n\nPlease verify API configuration."
@@ -1201,17 +851,14 @@ def generate_mock_response(prompt):
     max_overlap = 0
     
     for item in TOPIC_DATABASE:
-        # Count how many keywords match the prompt
         overlap = sum(1 for keyword in item["keywords"] if keyword in prompt_lower)
         if overlap > max_overlap:
             max_overlap = overlap
             best_match = item
             
-    # If a topic is found, return its content
     if best_match and max_overlap > 0:
         return best_match["content"]
     
-    # Fallback for unmatched queries
     return f"""🔍 **Regarding: "{prompt}"**
 
 This is an important Software Project Management topic. 
@@ -1245,17 +892,14 @@ def display_suggestions(suggestions):
         with cols[idx % 2]:
             if st.button(f"📌 {suggestion}", key=f"sugg_{idx}", use_container_width=True):
                 st.session_state.user_query = suggestion
-                # Use compatible rerun method
                 if hasattr(st, 'rerun'):
                     st.rerun()
                 else:
                     st.experimental_rerun()
 
 def main():
-    # Header
     st.title("⚖️ Software-Project-Management for B.E.Computer Science/B.Tech Information Technology Chatbot")
     
-    # Target audience banner
     st.markdown("""
     <div style='background-color: #4169E1; padding: 12px; border-radius: 8px; margin: 15px 0; border: 3px solid black; text-align: center;'>
         <p style='color: white; font-weight: bold; font-size: 15px; margin: 0;'>
@@ -1264,7 +908,6 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     
-    # Initialize session state
     if 'user_query' not in st.session_state:
         st.session_state.user_query = ""
     if 'result' not in st.session_state:
@@ -1272,7 +915,6 @@ def main():
     if 'suggestions' not in st.session_state:
         st.session_state.suggestions = get_random_suggestions(10)
     
-    # Sidebar
     with st.sidebar:
         st.markdown("### 📚 Repository Info")
         st.info(f"""
@@ -1299,11 +941,9 @@ def main():
             else:
                 st.experimental_rerun()
     
-    # Display suggestions
     display_suggestions(st.session_state.suggestions)
     st.markdown("---")
     
-    # User Input
     st.markdown("### ❓ Enter Your Query:")
     
     col1, col2 = st.columns([3, 1])
@@ -1323,7 +963,6 @@ def main():
         submit_clicked = st.button("📤 Submit Prompt", use_container_width=True, type="primary")
         reset_clicked = st.button("🔄 Reset", use_container_width=True)
     
-    # Reset functionality
     if reset_clicked:
         st.session_state.user_query = ""
         st.session_state.result = ""
@@ -1333,7 +972,6 @@ def main():
         else:
             st.experimental_rerun()
     
-    # Submit functionality
     if submit_clicked and user_query.strip():
         st.session_state.user_query = user_query.strip()
         
@@ -1341,13 +979,11 @@ def main():
             result = query_qwen_api(user_query, API_CONFIG["api_key"])
             st.session_state.result = result
     
-    # Display Result
     if st.session_state.result:
         st.markdown("---")
         st.markdown("### 💬 Response:")
         st.markdown(f'<div class="result-box">{st.session_state.result}</div>', unsafe_allow_html=True)
         
-        # Action buttons
         c1, c2, c3 = st.columns(3)
         with c1:
             st.button("📋 Copy", disabled=True, help="Manual copy: Select text + Ctrl+C")
@@ -1356,7 +992,6 @@ def main():
         with c3:
             st.button("💾 Save", disabled=True, help="Feature coming soon")
     
-    # Footer
     st.markdown("---")
     st.markdown("""
     <div style='background-color: #4169E1; padding: 12px; border-radius: 8px; text-align: center; border: 3px solid black;'>
