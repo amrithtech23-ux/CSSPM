@@ -1,4 +1,4 @@
-# app.py - COMPLETE FIXED VERSION
+# app.py - COMPLETE CORRECTED VERSION WITH STRICT TOPIC SEPARATION
 import streamlit as st
 import random
 from datetime import datetime
@@ -489,10 +489,24 @@ API_CONFIG = {
 }
 
 # Comprehensive Topic Database with STRICT keyword matching
+# Each topic has unique keywords to prevent conflicts
 TOPIC_DATABASE = [
     {
-        "topic": "Agile",
-        "keywords": ["agile manifesto", "agile methods", "agile software development", "scrum framework", "extreme programming", "xp practices", "dsdm atern", "dynamic systems development method", "incremental delivery", "time-boxing", "iterative development", "rapid application development", "rad model", "moscow classification", "sprint planning", "daily stand-up", "product backlog", "pair programming", "test-first development", "continuous integration", "refactoring", "user stories", "on-site customer", "small releases", "sustainable pace", "coding standards", "collective code ownership"],
+        "topic": "Agile Methods",
+        # Keywords specific to Agile - NO generic "team" or "communication"
+        "keywords": [
+            "agile manifesto", "agile methods", "agile software development", 
+            "scrum framework", "scrum roles", "scrum master", "product owner", "product backlog",
+            "sprint planning", "sprint review", "sprint retrospective", "daily stand-up", "daily scrum",
+            "extreme programming", "xp practices", "pair programming", "test-first development", 
+            "continuous integration", "refactoring", "user stories", "on-site customer", 
+            "dsdm atern", "dynamic systems development method", "moscow classification", 
+            "must have", "should have", "could have", "won't have", 
+            "incremental delivery", "time-boxing", "iterative development", 
+            "rapid application development", "rad model", 
+            "collective code ownership", "small releases", "sustainable pace", "coding standards",
+            "ag communications scrum", "scrum chief architect", "scrum closure phase"
+        ],
         "content": """🔄 **Agile Software Development Methods**
 
 **Agile Manifesto Principles:**
@@ -512,6 +526,7 @@ TOPIC_DATABASE = [
 • **Time-boxed**: Fixed duration sprints
 • **Team Size**: Maximum 10 developers per team
 • **Closure Phase**: Regression testing and user guides
+• **AG Communications Example**: Three meetings per week, freezing external requirements during sprint
 
 **2. Extreme Programming (XP):**
 • **Collective Code Ownership**: Programs as common property
@@ -573,8 +588,45 @@ TOPIC_DATABASE = [
 • Projects where speed to market is critical"""
     },
     {
-        "topic": "Team Structures",
-        "keywords": ["team structures evaluation", "group working enhancement", "coordination needs analysis", "communication genres", "communication plan", "social roles", "tasks individuals groups", "coordination through communication", "proactive central direction", "team-building exercises", "imbalance role types", "shapers without chair", "plants specialists", "additive group tasks", "compensatory group tasks", "disjunctive group tasks", "conjunctive group tasks", "social loafing", "structured unstructured decisions", "risk uncertainty decision", "faulty heuristics", "escalation commitment", "information overload decision", "participatory decision making", "group decision complementary", "brainstorming techniques", "jad joint application", "risky shift", "delphi technique expert", "team heedfulness", "collective mind", "egoless programming", "chief programmer team", "co-pilot role", "program clerk", "program librarian", "information overload chief", "staff dissatisfaction chief", "scrum team organization", "scrum chief architect", "scrum sprints", "scrum daily meetings", "scrum time-boxed", "scrum closure", "ag communications scrum", "functional department", "project department", "matrix department", "functional format", "technical ladder", "project format", "strong weak matrix", "multiplicity authority", "democratic team", "mixed control team", "single point failure", "coordination dependencies", "shared resources coordination", "producer-customer relationships", "task-subtask dependencies", "accessibility dependencies", "usability dependencies", "fit requirements", "mcchesney gallagher", "go-between role", "email principal communication", "copying emails", "dispersed virtual teams", "flow deep concentration", "ibm research workspace", "noise levels defects", "home working", "offshore staff", "advantages dispersed", "challenges dispersed", "communication genres time", "telephone same time", "instant messaging", "email different time", "voicemail", "documents different", "early project stages", "intermediate design", "implementation stages", "communication plans stakeholder", "leadership ability influence", "position power", "personal power", "directive autocrat", "permissive autocrat", "directive democrat", "permissive democrat", "task-oriented people-oriented", "tuckman jensen stages", "belbin team roles", "chair role", "plant role", "monitor-evaluator", "shaper role", "team worker", "resource investigator", "completer-finisher", "company worker", "specialist role"],
+        "topic": "Team Structures & Group Working",
+        # Keywords specific to Team Management - NO "agile", "scrum", "xp"
+        "keywords": [
+            "team structures", "group working", "group working enhancement", 
+            "coordination needs", "coordination through communication", 
+            "communication genres", "communication plan", "social roles", 
+            "tasks individuals groups", "proactive central direction", 
+            "team-building exercises", "outdoor activities", 
+            "imbalance role types", "shapers without chair", "plants specialists", 
+            "additive group tasks", "compensatory group tasks", "disjunctive group tasks", "conjunctive group tasks", 
+            "social loafing", "structured unstructured decisions", 
+            "risk uncertainty decision", "faulty heuristics", "escalation commitment", "information overload decision", 
+            "participatory decision making", "group decision complementary", 
+            "brainstorming techniques", "jad joint application", "risky shift", 
+            "delphi technique expert", "team heedfulness", "collective mind", 
+            "egoless programming", "chief programmer team", "co-pilot role", "program clerk", "program librarian", 
+            "information overload chief", "staff dissatisfaction chief", 
+            "functional department", "project department", "matrix department", 
+            "functional format", "technical ladder", "project format", "strong weak matrix", 
+            "multiplicity authority", "democratic team", "mixed control team", 
+            "single point failure", "coordination dependencies", "shared resources coordination", 
+            "producer-customer relationships", "task-subtask dependencies", 
+            "accessibility dependencies", "usability dependencies", "fit requirements", 
+            "mcchesney gallagher", "go-between role", "email principal communication", 
+            "copying emails", "dispersed virtual teams", "dispersed working", "virtual teams", 
+            "co-located teams", "co-located vs dispersed", 
+            "flow deep concentration", "ibm research workspace", "noise levels defects", 
+            "home working", "offshore staff", "advantages dispersed", "challenges dispersed", 
+            "communication genres time", "telephone same time", "instant messaging", 
+            "email different time", "voicemail", "documents different", 
+            "early project stages", "intermediate design", "implementation stages", 
+            "communication plans stakeholder", "leadership ability influence", 
+            "position power", "personal power", "directive autocrat", "permissive autocrat", 
+            "directive democrat", "permissive democrat", "task-oriented people-oriented", 
+            "tuckman jensen stages", "forming storming norming performing adjourning", 
+            "belbin team roles", "chair role", "plant role", "monitor-evaluator", 
+            "shaper role", "team worker", "resource investigator", "completer-finisher", 
+            "company worker", "specialist role", "new york times data bank"
+        ],
         "content": """👥 **Team Structures and Group Working Enhancement**
 
 **1. Team Development Stages (Tuckman & Jensen):**
@@ -647,6 +699,7 @@ TOPIC_DATABASE = [
 • **Tester**: Independent testing
 • **Editor**: Documentation preparation
 • **Temporary Members**: Specialists for particular problems
+• **Example**: New York Times data bank project
 
 **Advantages:**
 ✅ Design consistency for large complex systems
@@ -658,14 +711,6 @@ TOPIC_DATABASE = [
 ❌ Information overload danger for chief
 ❌ Staff dissatisfaction
 ❌ Difficulty finding outstanding programmers
-
-**Scrum Team Organization:**
-• **Chief Architect**: Defines overall architecture
-• **Team Size**: Maximum 10 developers
-• **Sprints**: 1-4 weeks time-boxed iterations
-• **Daily Meetings**: 15 minutes, report obstacles
-• **Parallel Teams**: Working on different sprints
-• **Closure Phase**: Regression testing and user guides
 
 **Democratic Team:**
 • No formal hierarchy
@@ -789,7 +834,7 @@ TOPIC_DATABASE = [
 
 **Leadership Styles:**
 • **Directive Autocrat**: Decides alone, close supervision
-• **Permissive Autocrat**: Decides alone, latitude in implementation
+• **Permissive Autocrat**: Decides alone, subordinates have latitude
 • **Directive Democrat**: Participative decisions, close supervision
 • **Permissive Democrat**: Participative decisions, latitude
 
@@ -813,9 +858,6 @@ TOPIC_DATABASE = [
 
 **XP Practices Promoting Collective Mind:**
 • Less formal communication methods
-• Constant code refactoring
-• Test cases before code as specification
-• User representative on hand
 • Continual integration testing
 
 **Team Building:**
@@ -834,8 +876,14 @@ TOPIC_DATABASE = [
 ✅ Regular feedback and adjustment"""
     },
     {
-        "topic": "Waterfall",
-        "keywords": ["waterfall model", "stage-gate model", "classical model", "sequential development", "linear model", "cascade model", "limited iteration", "natural milestones", "well-defined requirements", "h.d. bennington waterfall", "reopening completed activities", "business case review", "stage-gate", "ideal well-defined", "escaping end activity", "activities grouped differently", "alternative approaches"],
+        "topic": "Waterfall Model",
+        "keywords": [
+            "waterfall model", "stage-gate model", "classical model", "sequential development", 
+            "linear model", "cascade model", "limited iteration", "natural milestones", 
+            "well-defined requirements", "h.d. bennington waterfall", "reopening completed activities", 
+            "business case review", "stage-gate", "ideal well-defined", "escaping end activity", 
+            "activities grouped differently", "alternative approaches"
+        ],
         "content": """📊 **Waterfall Model (Classical/Stage-Gate Model)**
 
 **Overview:**
@@ -889,8 +937,13 @@ First described by H.D. Bennington (1956), the Waterfall model is a linear, sequ
 ⚠️ Innovative or research-oriented projects"""
     },
     {
-        "topic": "Spiral",
-        "keywords": ["spiral model", "boehm model", "risk-driven model", "boehm spiral", "four quadrants", "incremental style risk", "tailoring phases", "buying knowledge", "prototyping spiral", "ieee computer 1988", "phases not fixed", "spiral quadrants", "risk handling spiral"],
+        "topic": "Spiral Model",
+        "keywords": [
+            "spiral model", "boehm model", "risk-driven model", "boehm spiral", 
+            "four quadrants", "incremental style risk", "tailoring phases", 
+            "buying knowledge", "prototyping spiral", "ieee computer 1988", 
+            "phases not fixed", "spiral quadrants", "risk handling spiral"
+        ],
         "content": """🌀 **Spiral Model (Boehm's Risk-Driven Model)**
 
 **Overview:**
@@ -935,8 +988,35 @@ Developed by Barry Boehm (IEEE Computer, 1988), the Spiral model combines iterat
 • Projects requiring extensive prototyping"""
     },
     {
-        "topic": "Estimation",
-        "keywords": ["software estimation", "cocomo", "function point", "sloc estimation", "expert judgement estimation", "analogy-based estimation", "delphi technique estimation", "parkinson's law estimation", "weinberg's law", "mythical man-month", "bottom-up top-down", "wbs estimation", "effort duration estimation", "person-month effort", "productivity calculation", "algorithmic models", "cosmic full function", "mark ii function", "capers jones", "putnam staffing", "rayleigh-norden", "unrealistic estimates", "subjective estimating", "political implications estimation", "independent estimating", "changing technology estimation", "lack homogeneity", "iso 12207 estimation", "productivity sloc", "programmer productivity variation", "strategic planning estimates", "feasibility study estimates", "system specification estimates", "suppliers proposals estimates", "effort vs duration", "project size independent", "source lines code", "function points size", "no precise sloc", "difficulty estimating sloc", "sloc code measure", "programmer-dependent sloc", "sloc complexity", "communication overhead", "adding manpower late", "expert judgement", "estimating analogy", "parkinson method", "price to win", "work breakdown structure", "procedural code-oriented", "estimating sloc module", "complexity technical difficulty", "cocomo ii parametric", "cocomo81 organic", "cocomo ii application", "cocomo ii early", "cocomo ii post-architecture", "object points application", "cocomo ii scale", "cocomo ii effort", "albrecht function", "external input", "external output", "external inquiry", "logical internal file", "external interface file", "ifpug file", "technical complexity adjustment", "converting function points", "mark ii symons", "cosmic real-time", "cosmic data movements", "capers jones rules", "sloc function point", "project duration function", "requirements creep", "cost estimation effort", "staffing pattern", "putnam's staffing", "schedule compression", "limit schedule compression"],
+        "topic": "Estimation Techniques",
+        "keywords": [
+            "software estimation", "cocomo", "function point", "sloc estimation", 
+            "expert judgement estimation", "analogy-based estimation", "delphi technique estimation", 
+            "parkinson's law estimation", "weinberg's law", "mythical man-month", 
+            "bottom-up top-down", "wbs estimation", "effort duration estimation", 
+            "person-month effort", "productivity calculation", "algorithmic models", 
+            "cosmic full function", "mark ii function", "capers jones", "putnam staffing", 
+            "rayleigh-norden", "unrealistic estimates", "subjective estimating", 
+            "political implications estimation", "independent estimating", 
+            "changing technology estimation", "lack homogeneity", "iso 12207 estimation", 
+            "productivity sloc", "programmer productivity variation", "strategic planning estimates", 
+            "feasibility study estimates", "system specification estimates", "suppliers proposals estimates", 
+            "effort vs duration", "project size independent", "source lines code", 
+            "function points size", "no precise sloc", "difficulty estimating sloc", 
+            "sloc code measure", "programmer-dependent sloc", "sloc complexity", 
+            "communication overhead", "adding manpower late", "expert judgement", 
+            "estimating analogy", "parkinson method", "price to win", "work breakdown structure", 
+            "procedural code-oriented", "estimating sloc module", "complexity technical difficulty", 
+            "cocomo ii parametric", "cocomo81 organic", "cocomo ii application", 
+            "cocomo ii early", "cocomo ii post-architecture", "object points application", 
+            "cocomo ii scale", "cocomo ii effort", "albrecht function", "external input", 
+            "external output", "external inquiry", "logical internal file", "external interface file", 
+            "ifpug file", "technical complexity adjustment", "converting function points", 
+            "mark ii symons", "cosmic real-time", "cosmic data movements", "capers jones rules", 
+            "sloc function point", "project duration function", "requirements creep", 
+            "cost estimation effort", "staffing pattern", "putnam's staffing", "schedule compression", 
+            "limit schedule compression"
+        ],
         "content": """📊 **Software Estimation Techniques**
 
 **Key Challenges:**
@@ -1014,30 +1094,6 @@ Developed by Barry Boehm (IEEE Computer, 1988), the Spiral model combines iterat
   - **TEAM** (Team Cohesion)
   - **PMAT** (Process Maturity)
 
-• **Effort Multipliers**:
-  - **RCPX** (Product Reliability & Complexity)
-  - **RUSE** (Required Reusability)
-  - **PDIF** (Platform Difficulty)
-  - **PERS** (Personnel Capability)
-  - **PREX** (Personnel Experience)
-  - **FCIL** (Facilities)
-  - **SCED** (Schedule Pressure)
-  - **RELY** (Required Reliability)
-  - **DATA** (Database Size)
-  - **DOCU** (Documentation Match)
-  - **CPLX** (Product Complexity)
-  - **TIME** (Execution Time Constraint)
-  - **STOR** (Main Storage Constraint)
-  - **PVOL** (Platform Volatility)
-  - **ACAP** (Analyst Capability)
-  - **AEXP** (Application Experience)
-  - **PCAP** (Programmer Capability)
-  - **PEXP** (Platform Experience)
-  - **LEXP** (Language Experience)
-  - **PCON** (Personnel Continuity)
-  - **TOOL** (Software Tools)
-  - **SITE** (Multisite Development)
-
 **COCOMO81 Modes:**
 • **Organic**: Small teams, familiar environment
 • **Semi-detached**: Intermediate
@@ -1108,7 +1164,21 @@ Developed by Barry Boehm (IEEE Computer, 1988), the Spiral model combines iterat
     },
     {
         "topic": "Risk Management",
-        "keywords": ["risk management", "risk identification", "risk analysis", "risk mitigation", "risk register", "probability impact matrix", "risk exposure", "proactive reactive risk", "boehm top 10 risks", "risk reduction leverage", "uncertain event objectives", "risk components future", "lyytinen mathiassen ropponen", "checklists brainstorming", "personnel schedules", "wrong functions", "gold-plating", "potential damage probability", "qualitative risk assessment", "acceptance avoidance reduction", "mitigation transfer", "rrl calculation", "risk register content", "top project failure", "incomplete requirements", "lack user involvement", "resource constraints", "unrealistic expectations", "poor risk management", "identify brainstorming checklists", "analyze impact probability", "plan responses avoid", "mitigate transfer accept", "monitor triggers update", "risk exposure formula", "key risks personnel", "schedule slippage", "technical risks", "business risks", "risk management intelligently"],
+        "keywords": [
+            "risk management", "risk identification", "risk analysis", "risk mitigation", 
+            "risk register", "probability impact matrix", "risk exposure", 
+            "proactive reactive risk", "boehm top 10 risks", "risk reduction leverage", 
+            "uncertain event objectives", "risk components future", "lyytinen mathiassen ropponen", 
+            "checklists brainstorming", "personnel schedules", "wrong functions", "gold-plating", 
+            "potential damage probability", "qualitative risk assessment", 
+            "acceptance avoidance reduction", "mitigation transfer", "rrl calculation", 
+            "risk register content", "top project failure", "incomplete requirements", 
+            "lack user involvement", "resource constraints", "unrealistic expectations", 
+            "poor risk management", "identify brainstorming checklists", "analyze impact probability", 
+            "plan responses avoid", "mitigate transfer accept", "monitor triggers update", 
+            "risk exposure formula", "key risks personnel", "schedule slippage", "technical risks", 
+            "business risks", "risk management intelligently"
+        ],
         "content": """⚠️ **Risk Management & Failure Prevention**
 
 **Risk Definition:**
@@ -1240,7 +1310,48 @@ RRL = (Risk Exposure Before - Risk Exposure After) / Cost of Risk Reduction
     },
     {
         "topic": "Quality Management",
-        "keywords": ["software quality", "iso 9126", "mccall quality", "garvin quality", "cmm capability", "quality assurance", "software reviews", "testing strategies", "configuration management quality", "change control quality", "quality measurement", "process quality monitoring", "external quality standards", "increasing criticality", "accumulating errors", "bs iso iec 15939", "direct indirect quality", "quality specification", "reliability measurements", "maintainability components", "garvin dimensions", "mccall model", "dromey quality", "boehm quality", "functionality suitability", "reliability maturity", "usability understandability", "efficiency time", "maintainability analysisability", "portability adaptability", "correctness reliability", "integrity usability", "flexibility testability", "reusability interoperability", "internal characteristics", "contextual characteristics", "descriptive properties", "as-is utility", "maintainability portability", "quality characteristics", "compliance security", "fault tolerance recoverability", "learnability operability", "attractiveness compliance", "resource utilization", "changeability stability", "installability coexistence", "replaceability compliance", "mapping quality measurements", "product metrics", "process metrics", "product process quality", "entry requirements", "implementation requirements", "exit requirements", "bs en iso 9001", "iso 9000 series", "iso 9001 qms", "iso 9004 improvement", "stephen halliday", "means-ends inversion", "sei capability maturity", "cmm five levels", "initial repeatable", "defined managed optimizing", "quality specifications", "system unavailable", "availability mtbf", "changeability analysisability", "analysisability ease", "performance features", "conformance durability", "serviceability aesthetics", "perceived quality", "operational characteristics", "ease fixing", "ease porting", "nested menus", "attractiveness games", "replaceability upwards", "downwards compatibility", "coexistence sharing", "judge importance", "select external", "map measurements", "identify internal", "internal external mapping", "validation correlation", "qualitative indicators", "quantitative measurements", "combining ratings", "presence quality", "efficiency portability", "mandatory quality", "importance weighting", "weighted scores", "product comparison", "review effectiveness", "defects inspection", "average defect", "failures detected", "latent defects", "product-based pr", "predicting final", "errors entering", "errors caused", "development step", "test data", "repeating test", "tests successful", "quality control", "quality assurance", "identical iso", "ce marks", "quality manual", "change control system", "management responsibility", "resources trained", "effective communications", "design outcomes", "adequate measures", "controlled conditions", "measurement demonstrate", "uvw company", "lisa software", "project engineer", "separate systems", "fault correction", "process improvement", "psp personal"],
+        "keywords": [
+            "software quality", "iso 9126", "mccall quality", "garvin quality", 
+            "cmm capability", "quality assurance", "software reviews", "testing strategies", 
+            "configuration management quality", "change control quality", "quality measurement", 
+            "process quality monitoring", "external quality standards", "increasing criticality", 
+            "accumulating errors", "bs iso iec 15939", "direct indirect quality", 
+            "quality specification", "reliability measurements", "maintainability components", 
+            "garvin dimensions", "mccall model", "dromey quality", "boehm quality", 
+            "functionality suitability", "reliability maturity", "usability understandability", 
+            "efficiency time", "maintainability analysisability", "portability adaptability", 
+            "correctness reliability", "integrity usability", "flexibility testability", 
+            "reusability interoperability", "internal characteristics", "contextual characteristics", 
+            "descriptive properties", "as-is utility", "maintainability portability", 
+            "quality characteristics", "compliance security", "fault tolerance recoverability", 
+            "learnability operability", "attractiveness compliance", "resource utilization", 
+            "changeability stability", "installability coexistence", "replaceability compliance", 
+            "mapping quality measurements", "product metrics", "process metrics", 
+            "product process quality", "entry requirements", "implementation requirements", 
+            "exit requirements", "bs en iso 9001", "iso 9000 series", "iso 9001 qms", 
+            "iso 9004 improvement", "stephen halliday", "means-ends inversion", 
+            "sei capability maturity", "cmm five levels", "initial repeatable", 
+            "defined managed optimizing", "quality specifications", "system unavailable", 
+            "availability mtbf", "changeability analysisability", "analysisability ease", 
+            "performance features", "conformance durability", "serviceability aesthetics", 
+            "perceived quality", "operational characteristics", "ease fixing", "ease porting", 
+            "nested menus", "attractiveness games", "replaceability upwards", 
+            "downwards compatibility", "coexistence sharing", "judge importance", 
+            "select external", "map measurements", "identify internal", 
+            "internal external mapping", "validation correlation", "qualitative indicators", 
+            "quantitative measurements", "combining ratings", "presence quality", 
+            "efficiency portability", "mandatory quality", "importance weighting", 
+            "weighted scores", "product comparison", "review effectiveness", "defects inspection", 
+            "average defect", "failures detected", "latent defects", "product-based pr", 
+            "predicting final", "errors entering", "errors caused", "development step", 
+            "test data", "repeating test", "tests successful", "quality control", 
+            "quality assurance", "identical iso", "ce marks", "quality manual", 
+            "change control system", "management responsibility", "resources trained", 
+            "effective communications", "design outcomes", "adequate measures", 
+            "controlled conditions", "measurement demonstrate", "uvw company", "lisa software", 
+            "project engineer", "separate systems", "fault correction", "process improvement", 
+            "psp personal"
+        ],
         "content": """✅ **Software Quality Management**
 
 **Increasing Criticality of Software:**
@@ -1485,6 +1596,550 @@ RRL = (Risk Exposure Before - Risk Exposure After) / Cost of Risk Reduction
 ✅ Continuous process improvement
 ✅ Staff training and competence development
 ✅ Lessons learned from previous projects"""
+    },
+    {
+        "topic": "Business Case & Portfolio",
+        "keywords": [
+            "business case", "portfolio management", "npv", "irr", "roi", 
+            "cost-benefit", "payback period", "investment", "net present value", 
+            "internal rate of return", "return on investment", "discounted cash flow", 
+            "risk-adjusted npv", "sensitivity analysis", "decision trees", 
+            "programme management", "benefits management", "strategic project selection", 
+            "warren mcfarlan", "npd renewal projects", "below-the-line projects", 
+            "ad hoc tasks", "margin non-planned work", "technical assessment", 
+            "development costs", "setup costs", "operational costs", "cash flow forecasting", 
+            "decommissioning costs", "ignoring inflation", "quarterly monthly cash flow", 
+            "net profit criterion", "payback period calculation", "payback ignoring post-breakeven", 
+            "roi formula", "disadvantages roi", "npv considering profitability timing", 
+            "discount rate selection", "risk premium", "present value formula", 
+            "discount factor table", "npv calculation year 0", "difficulty selecting discount rate", 
+            "discount rate target return", "irr percentage measure", "irr calculated discount rate", 
+            "irr deficiency absolute size", "multiple irr solutions", "funding cash flow problems", 
+            "project risk matrix importance likelihood", "probability-weighted expected value", 
+            "buyright payroll example", "cost-benefit portfolio evaluation", "sensitivity analysis varying", 
+            "decision tree sequential risk", "expected value decision trees", "dc ferns programme", 
+            "business cycle programmes", "strategic programmes", "infrastructure programmes", 
+            "research development programmes", "innovative partnerships", "programme manager project manager", 
+            "programme manager personal relationship", "programme manager maximize resource", 
+            "project manager impersonal relationship", "programme management monitoring", 
+            "strategic programme management", "ogc guidelines programme", "programme mandate", 
+            "programme director appointment", "programme champion", "programme brief business case", 
+            "preliminary vision statement", "vision statement refinement", "blueprint structural operational", 
+            "business models new processes", "organizational structure blueprint", 
+            "data information requirements blueprint", "benefit profiles estimating", 
+            "tangible benefits delivery", "stakeholder map communication", 
+            "preliminary programme portfolio", "financial plan budget", 
+            "dependency diagrams programme", "tranches projects", "project briefs planning", 
+            "reservations programme management", "super-project trap", "programme structure expense process", 
+            "bureaucratic obstruction control", "programmes evolution modification", 
+            "different forms programme management", "benefits management definition", 
+            "mandatory compliance benefit", "quality service benefit", "productivity benefit", 
+            "motivated workforce benefit", "internal management benefits", "risk reduction benefit", 
+            "economy cost reduction", "revenue enhancement acceleration", "strategic fit benefit", 
+            "benefits inter-linked", "quantified valued benefits", "quantified not valued", 
+            "identified not quantified", "disbenefits", "tests genuine benefits", 
+            "business change managers", "benefits monitored project environment", 
+            "developers users jointly responsible", "projects evaluated strategic technical economic", 
+            "benefits precisely quantifiable", "money received future worth less", 
+            "uncertainty future returns lowering", "discounted cash flow present value", 
+            "decision trees choosing alternative", "insurance company claims settlement", 
+            "stress claims staff", "shortages qualified repair", "brightmouth college off-shelf programmer", 
+            "irr calculation investment return", "roi calculation cost profit", 
+            "payback period cost inflows", "increase discount rate affecting irr", 
+            "irr equal discount rate npv", "payback period maintenance contract", 
+            "npv calculation discount rate", "roi not computing discounted net", 
+            "roi not computing time period", "bidding costs uk government", 
+            "suppliers accommodating contract", "customer bargaining position", 
+            "contract department participation", "notifying unsuccessful candidates", 
+            "wto eu rules notification", "legal advice substantial contract", 
+            "two-stage tendering process", "memorandum agreement suppliers", 
+            "demonstrations controlled suppliers", "visits operational sites", 
+            "projects decision process initiation", "single project justified benefits", 
+            "projects enabling strategic objectives", "medical diagnosis system benefit", 
+            "business case multiple potential projects", "management plan section business case", 
+            "health-check milestones", "uncertainties costs requirements", 
+            "project risk business risk business case", "b de royck portfolio", 
+            "too many projects resources", "projects completed organization benefits", 
+            "portfolio definition portfolio management", "warren mcfarlan harvard", 
+            "setting new warehouse non-ict", "new information system recording insurance", 
+            "continuous development new goods", "renewal projects inherently risky", 
+            "tracking actual project performance", "rigorous screening new projects", 
+            "e-commerce site sales competitors", "automating processes cost cutting", 
+            "full-time staff part-time routine", "developers called away support", 
+            "only projects certain cost level", "b s bichlefiet eskerod portfolio", 
+            "quick fixes systems externally", "reducing higher management work", 
+            "first-line managers judgement", "organizational policy limiting technical", 
+            "bank investment minimum return", "new sales order processing benefit", 
+            "file conversion costs setup", "recruitment costs setup", "staff training costs setup", 
+            "brightmouth college payroll costs", "quantified not valued benefits examples", 
+            "identified not valued benefits examples", "decommissioning costs product life", 
+            "funding development expenditure", "bankruptcy unplanned negative cash", 
+            "table project net profit investment", "risk investing single project", 
+            "bulk income occurring late", "estimates distant future reliable", 
+            "payback period simple calculate", "roi bearing relationship bank", 
+            "roi taking account compounding", "100 today better 100 next year", 
+            "91 now equivalent 100 one year", "83 now equivalent 100 two years", 
+            "discount factor table rates", "initial investment year 0 discounted", 
+            "later cash flows end year", "project npv discount rate", 
+            "same net profit roi different npv", "discount rate reflecting borrowing", 
+            "software projects risky lending", "same discount rate compared projects", 
+            "ranking projects sensitive discount", "table projects cash flows discount", 
+            "positive npv projects selection", "irr directly comparable interest", 
+            "project worthwhile capital borrowed", "project worthwhile capital investable", 
+            "microsoft excel irr function", "irr indicating absolute size", 
+            "project npv irr vs npv irr", "multiple irr solutions take lowest", 
+            "repaying interest borrowed money", "future earnings risky project", 
+            "project financial framework organization", "risk identification quantification", 
+            "project risk matrix checklist", "importance likelihood separately assessed", 
+            "client rejects proposed look", "warehouse unable deal increased", 
+            "online payment security problems", "response times deterring purchasers", 
+            "risk premiums high medium low", "cost-benefit approach evaluating", 
+            "assigning probabilities scenarios", "averaging negative positive outcomes", 
+            "worst-case scenarios averaging", "successful projects offset less", 
+            "sensitivity analysis varying parameters", "recalculating expected costs", 
+            "passive bystander assumption risk", "decision limiting affecting future", 
+            "competitor bankruptcy rumours", "replacing system time revenue", 
+            "replacing system deferring projects", "extending existing system npv", 
+            "market expanding turning loss", "replacing system npv market expands", 
+            "replacing system npv market loss", "likelihood market increasing", 
+            "probability market increasing", "decision point denoted decision tree", 
+            "programmes providing benefits possible"
+        ],
+        "content": """💼 **Business Case & Portfolio Management**
+
+**Business Case Components:**
+1. Introduction & background
+2. Proposed project description
+3. Market analysis (demand, competitors)
+4. Organizational infrastructure planning
+5. Benefits identification & valuation
+6. Outline implementation plan
+7. Cost scheduling
+8. Financial case analysis
+
+**Financial Metrics:**
+
+**1. Payback Period:**
+• Time to recover initial investment
+• **Advantages**: Simple to calculate, not sensitive to small errors
+• **Disadvantages**: Ignores post-breakeven income, ignores timing of cash flows
+
+**2. Return on Investment (ROI):**
+• Formula: (Average annual profit / Total investment) × 100
+• **Advantages**: Easy to understand
+• **Disadvantages**: Ignores timing of cash flows, no relation to interest rates, doesn't account for compounding
+
+**3. Net Present Value (NPV):**
+• Considers profitability and timing of cash flows
+• **Formula**: Value in year t / (1 + r)^t
+• **Discount Rate**: Reflects borrowing costs plus risk premium
+• **Advantages**: Accounts for time value of money (£100 today > £100 next year)
+• **Disadvantages**: Difficulty selecting appropriate discount rate
+• **Decision Rule**: Positive NPV projects considered for selection
+
+**4. Internal Rate of Return (IRR):**
+• Percentage measure, directly comparable with interest rates
+• Calculated as discount rate producing NPV of zero
+• **Advantages**: Easy to compare with cost of capital
+• **Disadvantages**: Does not indicate absolute size of return, multiple IRR solutions possible (take lowest value)
+• **Decision Rule**: Project worthwhile if capital borrowed for less than IRR
+
+**Portfolio Management:**
+
+**Warren McFarlan Portfolio Concept:**
+• Evaluate projects against strategic, technical, and economic criteria
+• Balance high-risk/high-reward with low-risk/low-reward projects
+• Maintain single repository for all current projects
+
+**Portfolio Optimization:**
+• Too many projects started relative to resources → missed dates
+• Projects must be completed for organization to reap benefits
+• NPD projects attract funding more easily than renewal projects
+• Below-the-line projects impact official portfolios
+
+**Benefits Management:**
+• **Tangible Benefits**: Quantified and valued (e.g., cost reduction)
+• **Intangible Benefits**: Quantified but not valued (e.g., customer satisfaction)
+• **Disbenefits**: Negative impacts (e.g., overtime costs)
+• **Tests for Genuine Benefits**: Explain, see consequences, attribute, measure
+
+**Programme Management:**
+• Grouping individual projects into programmes for coordinated benefits
+• **Programme Mandate**: Formal triggering document
+• **Programme Brief**: Outlines business case and vision
+• **Blueprint**: Structural and operational changes
+• **Tranches**: Coherent groups delivering stepwise benefits
+
+**Risk-Adjusted Evaluation:**
+• **Sensitivity Analysis**: Varying parameters by ±5%
+• **Decision Trees**: Sequential risk-based decisions
+• **Expected Value**: Probability-weighted outcomes
+• **Risk Premiums**: Added to discount rate for high-risk projects
+
+**Key Principles:**
+✅ Projects evaluated on strategic, technical, economic grounds
+✅ Money received in future worth less than money now
+✅ Uncertainty lowers real value of future returns
+✅ Not all benefits precisely quantifiable in financial values
+✅ Developers and users jointly responsible for benefits delivery
+✅ Benefits cannot normally be monitored in project environment
+
+**Common Pitfalls:**
+⚠️ Ignoring inflation in cash flow estimates
+⚠️ Focusing only on net profit (ignores investment size)
+⚠️ Assuming passive bystander in risk analysis
+⚠️ Averaging out worst-case scenarios
+⚠️ Bureaucratic obstruction in programme management
+⚠️ Super-project trap (programmes becoming too large)
+
+**Best Practices:**
+✅ Use multiple evaluation techniques (NPV, IRR, Payback)
+✅ Perform sensitivity analysis on key assumptions
+✅ Maintain risk register for portfolio projects
+✅ Regularly review and re-prioritize portfolio
+✅ Ensure strategic alignment of all projects
+✅ Track actual benefits vs. planned benefits
+✅ Use decision trees for complex sequential decisions"""
+    },
+    {
+        "topic": "Configuration Management",
+        "keywords": [
+            "configuration management", "change control", "version control", "scm", 
+            "baseline management", "variant management", "release management", 
+            "software configuration management", "change control board", "ccb", 
+            "request for change", "rfc", "configuration librarian", "central repository", 
+            "scope creep", "baselining products", "configuration items", "versioning numbering", 
+            "revision numbering", "variants operating systems", "concurrent access problems", 
+            "undoing changes configuration", "comparing versions", "fixing bug variant", 
+            "controlled pre-controlled uncontrolled", "reserve operation", "sccs rcs", 
+            "delta storage", "check-out check-in", "bs en iso 9001 change control", 
+            "manual change management overwhelmed", "configuration management tool", 
+            "configuration items work products", "versioning identification", 
+            "revision identification", "variants unix windows", "novice enterprise professional", 
+            "concurrent access", "undoing changes", "comparing today yesterday", 
+            "fixing bug one variant", "controlled work products", "reserve operation private", 
+            "ccb reviewing changes restore", "ccb functions project manager", 
+            "sccs rcs unix text", "deltas storing changes baseline", 
+            "check-out check-in facilities", "types contracts", "fixed price contracts", 
+            "time materials contracts", "fixed price per unit", "open tendering", 
+            "restricted tendering", "negotiated procedure", "requirements analysis suppliers", 
+            "mandatory desirable requirements", "evaluation plan proposal", 
+            "iso 9126 quality evaluation", "value money contract selection", 
+            "whole lifetime costs evaluation", "contract terms definitions", 
+            "ownership software copyright", "escrow agreement source code", 
+            "acceptance procedures testing", "liquidated damages penalty", 
+            "alternative dispute resolution"
+        ],
+        "content": """🔧 **Configuration & Change Management**
+
+**Configuration Management (SCM):**
+• **Configuration**: Software product state at any point in time
+• **Version**: Configuration at specific point
+• **Revision**: Successive states of configuration item
+• **Baseline**: Formally reviewed and agreed configuration
+• **Variants**: Versions intended to coexist (different platforms)
+• **Configuration Items**: Work products under configuration control
+
+**Change Control Process:**
+1. Request for Change (RFC) through single authorized channel
+2. Assess products affected by proposed change
+3. Change Control Board (CCB) approval
+4. Configuration librarian maintains master copies
+5. Implement change with check-out/check-in
+6. User acceptance testing for new versions
+
+**Change Control Board (CCB):**
+• Reviews changes before restore
+• Functions discharged by project manager for small projects
+• Filters within client community before RFC generation
+• Prevents bureaucratic bottleneck from too many RFCs
+• Allows project manager allowance for minor changes
+
+**Configuration Librarian:**
+• Central repository of master copies of project documentation
+• System accounting for tracking who made what change
+• Release management for systematizing new software releases
+
+**Tools:**
+• **SCCS, RCS**: UNIX text file version control
+• **Delta Storage**: Efficient version storage (changes between baselines)
+• **Check-out/Check-in**: Facilities for controlled access
+
+**Key Concepts:**
+
+**Versioning vs. Revision:**
+• **Versioning**: Numbering scheme for specific configuration identification
+• **Revision**: Numbering scheme for work product state identification
+• **Variants**: For different operating systems (Unix, Windows)
+  - Novice version, enterprise version, professional version
+
+**Baselining:**
+• Baselining products as foundation for further development
+• Freeze products for further development
+• Re-estimating system size at key milestones for scope control
+
+**Scope Creep Prevention:**
+• Filter changes through CCB
+• Single authorized channel for requests for change
+• Assess products affected by proposed change
+• Large number of small changes having accumulative effect
+
+**Concurrent Access:**
+• Concurrent access problems without configuration management
+• Undoing changes requiring configuration management
+• Comparing today's version with yesterday's version
+• Fixing bug in one variant needing fix in all versions
+
+**Work Product Control:**
+• Controlled, pre-controlled, and uncontrolled work products
+• Reserve operation for getting private copy of module
+• Recompiling and testing after code modification
+• User acceptance testing for new versions
+• Operational release authorization by user
+
+**Standards:**
+• BS EN ISO 9001:1994 requiring formal change control
+• Manual change management overwhelmed with multiple variants
+• Configuration management tool deployment for systematic SCM
+
+**Contract Types:**
+• **Fixed Price**: Known customer expenditure
+• **Time & Materials**: Fixed rate per unit of effort
+• **Fixed Price per Unit**: Function point based
+
+**Tendering Processes:**
+• **Open Tendering**: Any supplier can bid
+• **Restricted Tendering**: Invited suppliers only
+• **Negotiated Procedure**: Single supplier situations
+
+**Contract Evaluation:**
+• Mandatory vs. desirable requirements
+• Value for money as key criterion
+• Whole lifetime costs consideration
+• ISO 9126 for quality evaluation
+
+**Contract Terms:**
+• Definitions, form of agreement, goods and services
+• Ownership of software and copyright
+• Escrow agreement for source code protection
+• Acceptance procedures and testing
+• Liquidated damages and penalty clauses
+• Alternative dispute resolution
+
+**Key Principles:**
+✅ Configuration management essential for team coordination
+✅ Change control prevents scope creep
+✅ Baselines provide stable reference points
+✅ Version control enables parallel development
+✅ CCB ensures changes are evaluated properly
+✅ Documentation must be kept up to date
+
+**Best Practices:**
+✅ Implement SCM early in project
+✅ Define clear versioning scheme
+✅ Use automated tools for version control
+✅ Regular backups of configuration items
+✅ Train team on SCM procedures
+✅ Audit configuration items periodically
+✅ Integrate SCM with change control process
+✅ Monitor scope creep through RFC tracking"""
+    },
+    {
+        "topic": "Planning & Scheduling",
+        "keywords": [
+            "project planning", "step wise planning", "prince2 methodology", 
+            "activity planning", "gantt charts", "critical path method", "cpm", 
+            "pert analysis", "network planning models", "resource allocation", 
+            "resource smoothing", "resource histograms", "float calculation", 
+            "critical path identification", "precedence networks", "activity-on-node", 
+            "earned value analysis", "schedule variance", "cost variance", 
+            "performance indices", "cpi", "spi", "work breakdown structure", 
+            "product breakdown structure", "product flow diagram", "usdp artifacts", 
+            "sequencing scheduling activities", "bar charts", "activity-on-arrow", 
+            "dummy activities", "forward pass", "backward pass", "total float", 
+            "free float", "interfering float", "shortening project duration", 
+            "activity standard deviation", "pert three estimates", "pert expected duration", 
+            "probability meeting target dates", "z-value calculation", "monte carlo simulation", 
+            "resource allocation step wise", "activity schedule planned start", 
+            "resource schedule dates levels", "cost schedule planned cumulative", 
+            "labour resource category", "equipment resource category", "materials resource", 
+            "space resource category", "services resource category", "time resource offset", 
+            "money secondary resource", "identifying resource requirements", 
+            "project infrastructure resources", "resource requirements list", 
+            "mapping resource requirements", "resource histogram visualizing", 
+            "earliest start date scheduling", "cost changing resource levels", 
+            "idle staff time specification", "smoothing resource histograms", 
+            "splitting non-critical activities", "difficulty splitting tasks", 
+            "resource smoothing software tools", "prioritizing activities allocation", 
+            "total float priority allocation", "burman's priority list", 
+            "shortest critical activity priority", "critical activities priority", 
+            "shortest non-critical priority", "non-critical least float priority", 
+            "resource smoothing possible timescales", "resource constraints critical paths", 
+            "resource-linked criticalities", "cost comparison additional staff", 
+            "allocating individuals activities", "availability factor allocating", 
+            "criticality activities influencing", "risk assessment guiding allocation", 
+            "allocating experienced staff risk", "project control cycle monitoring", 
+            "four types project shortfall", "project steering committee progress", 
+            "project reporting structures", "prince2 project assurance", 
+            "categories reporting oral written", "weekly progress meetings minutes", 
+            "end-of-stage review meetings", "exception reports deviations", 
+            "change reports requirement modifications", "objective tangible information", 
+            "checkpoints activity plan", "weekly reporting developers", 
+            "review points control points", "prince2 end stage assessment", 
+            "difficulty forecasting partially completed", "in-activity milestones", 
+            "weekly timesheets resource usage", "99% complete phenomenon", 
+            "red amber green rag reporting", "review cost-effective defect removal", 
+            "review identifying deviation standards", "review learning opportunity", 
+            "review roles moderator recorder", "moderator responsibilities scheduling", 
+            "recorder role documenting defects", "review process activities planning", 
+            "review team size five seven", "author preceding work reviewer", 
+            "user work product reviewer", "peers author reviewers", 
+            "review preparation log defect", "review log defects agreed", 
+            "review summary report total defects", "gantt chart tracking progress", 
+            "today cursor gantt chart", "slip chart schedule variations", 
+            "slip line bending variation", "timeline chart target changes", 
+            "planned time elapsed time", "cumulative expenditure chart cost", 
+            "projected future costs actual", "earned value analysis originating", 
+            "planned value pv bcws", "earned value ev bcwp", "0/100 technique earned", 
+            "50/50 technique earned", "75/25 technique earned", "milestone technique earned", 
+            "baseline budget earned value", "actual cost ac acwp", 
+            "schedule variance sv ev pv", "time variance tv planned actual", 
+            "cost variance cv ev ac", "cost performance index cpi ev ac", 
+            "schedule performance index spi ev pv", "estimate completion eac bac cpi", 
+            "time estimate completion teac sac spi", "prioritizing monitoring critical", 
+            "activities free float monitoring", "activities critical resources monitoring", 
+            "shortening critical path target", "adding resources speed critical", 
+            "increasing use current resources", "reallocating staff critical activities", 
+            "reducing scope functionality deadlines", "reducing quality-related activities", 
+            "reconsidering precedence requirements", "subdividing activities start earlier", 
+            "maintaining business case revising", "exception planning exception reports", 
+            "change control requirements modifications", "baselining products freeze"
+        ],
+        "content": """📅 **Project Planning & Scheduling**
+
+**Planning Steps:**
+1. Define scope & deliverables
+2. Create Work Breakdown Structure (WBS)
+3. Estimate effort & resources
+4. Develop realistic timeline
+5. Identify risks & mitigation
+6. Establish communication protocols
+
+**Scheduling Techniques:**
+
+**1. Gantt Charts:**
+• Visual timeline representation
+• Named after Henry Gantt (1861-1919)
+• Shading activity bars for reported progress
+• Today cursor for visual progress indication
+• Combines sequencing and scheduling
+
+**2. Critical Path Method (CPM):**
+• Developed by DuPont Chemical Company (1958)
+• **Forward Pass**: Earliest start/finish dates
+• **Backward Pass**: Latest start/finish dates
+• **Float Calculation**:
+  - Total Float: Time activity can be delayed without delaying project
+  - Free Float: Time activity can be delayed without delaying successor
+  - Interfering Float: Total Float - Free Float
+• **Critical Path Identification**: Path with zero total float
+• **Shortening Duration**: Reduce critical path activities
+
+**3. PERT Analysis:**
+• **Three Estimates**: Optimistic (a), Most Likely (m), Pessimistic (b)
+• **Expected Duration**: (a + 4m + b) / 6
+• **Activity Standard Deviation**: (b - a) / 6
+• **Probability Calculations**: Z-value for target dates
+• **Monte Carlo Simulation**: Risk analysis for schedule uncertainty
+
+**4. Network Planning Models:**
+• **Precedence Networks**: Activity-on-node
+  - Single start node rule
+  - Single end node rule
+  - Links have no duration
+  - No loops allowed
+• **Activity-on-Arrow Networks**:
+  - Nodes as events (zero duration)
+  - Dummy activities for logical dependencies
+  - Sequential node numbering
+  - Dangling activities avoided
+
+**Resource Allocation:**
+
+**Resource Categories:**
+• Labour (project manager, analysts, developers)
+• Equipment (workstations, office equipment)
+• Materials (consumables like disks)
+• Space (office space for additional staff)
+• Services (telecommunications services)
+• Time & Money (secondary resources)
+
+**Resource Histograms:**
+• Visualizing resource distribution
+• Earliest start date scheduling creates peaked histograms
+• Ideal histogram: Initial build-up and staged run-down
+
+**Resource Smoothing:**
+• Adjust activity start dates using float
+• Split non-critical activities (difficult in software)
+• Prioritize: Critical path first, then by total float
+• **Burman's Priority List**:
+  - Critical activities
+  - Non-critical activities with least float
+  - Shortest non-critical activities
+• Resource constraints can create new critical paths
+
+**Earned Value Analysis:**
+• Originated from US Department of Defence
+• **Key Metrics**:
+  - Planned Value (PV) / BCWS: Budgeted cost of work scheduled
+  - Earned Value (EV) / BCWP: Budgeted cost of work performed
+  - Actual Cost (AC) / ACWP: Actual cost of work performed
+  - Budget at Completion (BAC)
+• **Variance Analysis**:
+  - Schedule Variance (SV) = EV - PV (negative = behind schedule)
+  - Cost Variance (CV) = EV - AC (negative = over budget)
+• **Performance Indices**:
+  - Cost Performance Index (CPI) = EV / AC (>1 = better than planned)
+  - Schedule Performance Index (SPI) = EV / PV
+• **Forecasting**:
+  - Estimate at Completion (EAC) = BAC / CPI
+  - Time Estimate at Completion (TEAC) = SAC / SPI
+• **Earned Value Assignment Techniques**:
+  - 0/100 technique (nothing until complete)
+  - 50/50 technique (50% at start, 50% at finish)
+  - 75/25 technique
+  - Milestone technique
+
+**Project Control Cycle:**
+1. Monitor progress
+2. Compare with plan
+3. Identify shortfalls (delays, quality, functionality, costs)
+4. Revise plan if necessary
+
+**Reporting:**
+• **Traffic-Light (RAG)**: Red/Amber/Green status
+• **Slip Charts**: Visual indication of schedule variations
+• **Timeline Charts**: Recording target changes over duration
+• **Cumulative Expenditure**: Comparing actual vs. planned
+
+**Key Principles:**
+✅ Planning is iterative and progressive
+✅ Resource constraints affect schedule
+✅ Critical path determines project duration
+✅ Earned value provides objective progress measurement
+✅ Regular reporting keeps stakeholders informed
+✅ Exception reporting for significant deviations
+
+**Best Practices:**
+✅ Use WBS for detailed planning
+✅ Identify critical path early
+✅ Monitor critical activities closely
+✅ Use float wisely for resource smoothing
+✅ Perform earned value analysis regularly
+✅ Update plans based on actual progress
+✅ Communicate changes promptly
+✅ Maintain baseline for comparison"""
     }
 ]
 
@@ -1508,11 +2163,13 @@ def generate_mock_response(prompt):
     max_overlap = 0
     
     for item in TOPIC_DATABASE:
+        # Count how many keywords match the prompt
         overlap = sum(1 for keyword in item["keywords"] if keyword in prompt_lower)
         if overlap > max_overlap:
             max_overlap = overlap
             best_match = item
             
+    # If a topic is found, return its content
     if best_match and max_overlap > 0:
         return best_match["content"]
     
@@ -1663,4 +2320,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
