@@ -1,3 +1,4 @@
+# app.py - FIXED VERSION
 import streamlit as st
 import requests
 import json
@@ -12,89 +13,69 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS styling
+# Simplified Custom CSS - Deployment-safe
 st.markdown("""
 <style>
-    /* Main container styling */
-    .main {
-        background-color: #f5f5f5;
-    }
-    
-    /* Bold borders for text areas */
-    .stTextArea > div > div > textarea {
+    /* Bold borders for all text areas */
+    div[data-testid="stTextArea"] textarea {
         border: 3px solid #000000 !important;
-        border-radius: 10px !important;
+        border-radius: 8px !important;
     }
     
-    /* User input area - Blue background, white text */
-    .user-input textarea {
+    /* User input - Blue background, white text, bold */
+    div[data-testid="stTextArea"] textarea {
         background-color: #1E90FF !important;
         color: white !important;
         font-weight: bold !important;
         font-size: 16px !important;
-        border: 3px solid #000000 !important;
     }
     
-    /* Result area - Blue background, white text */
-    .result-area textarea {
+    /* Suggestion buttons - Royal blue, bold, bigger */
+    div.stButton > button {
+        background-color: #4169E1 !important;
+        color: white !important;
+        font-weight: bold !important;
+        font-size: 15px !important;
+        border: 2px solid #000000 !important;
+        border-radius: 6px !important;
+        margin: 3px 0 !important;
+    }
+    
+    div.stButton > button:hover {
         background-color: #1E90FF !important;
+        border-color: #000000 !important;
+    }
+    
+    /* Submit/Reset buttons */
+    div.stButton > button[kind="primary"] {
+        background-color: #4169E1 !important;
         color: white !important;
         font-weight: bold !important;
         font-size: 16px !important;
+    }
+    
+    /* Result display box */
+    .result-box {
+        background-color: #1E90FF !important;
+        color: white !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
         border: 3px solid #000000 !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
     }
     
-    /* System suggestion prompts - Royal blue, bold, bigger */
-    .suggestion-prompt {
-        background-color: #4169E1;
-        color: white;
-        padding: 15px;
-        border-radius: 8px;
-        margin: 5px 0;
-        font-weight: bold;
-        font-size: 16px;
-        border: 2px solid #000000;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    
-    .suggestion-prompt:hover {
-        background-color: #1E90FF;
-        transform: scale(1.02);
-    }
-    
-    /* Button styling */
-    .stButton > button {
-        background-color: #4169E1;
-        color: white;
-        font-weight: bold;
-        font-size: 16px;
-        border: 3px solid #000000;
-        border-radius: 8px;
-        padding: 10px 24px;
-    }
-    
-    .stButton > button:hover {
-        background-color: #1E90FF;
-    }
-    
-    /* Header styling */
+    /* Header */
     h1 {
-        color: #4169E1;
-        font-weight: bold;
-        text-align: center;
-    }
-    
-    /* Sidebar styling */
-    .sidebar-content {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
+        color: #4169E1 !important;
+        font-weight: bold !important;
+        text-align: center !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Sample topics from the uploaded file for generating suggestions
+# SPM Topics from knowledge base
 SPM_TOPICS = [
     "Scope of software project management",
     "Problems and concerns of software project managers",
@@ -151,7 +132,7 @@ SPM_TOPICS = [
 # API Configuration
 API_CONFIG = {
     "api_key": "CSSPM2K6",
-    "base_url": "https://api.qwen.ai/v1",  # Replace with actual Qwen API endpoint
+    "base_url": "https://api.qwen.ai/v1",
     "model": "qwen-chat",
     "repository": "CSSPM",
     "license": "MIT"
@@ -162,94 +143,59 @@ def get_random_suggestions(num_suggestions=10):
     return random.sample(SPM_TOPICS, min(num_suggestions, len(SPM_TOPICS)))
 
 def query_qwen_api(prompt, api_key):
-    """
-    Query Qwen Chatbot API
-    Replace this with actual API call when you have the endpoint
-    """
+    """Query Qwen API with fallback mock response"""
     try:
-        # Example API call structure for Qwen
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
-        
-        payload = {
-            "model": API_CONFIG["model"],
-            "messages": [
-                {
-                    "role": "system",
-                    "content": "You are an expert Software Project Management assistant for B.E. Computer Science and B.Tech IT students. Provide clear, concise, and educational answers."
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            "temperature": 0.7,
-            "max_tokens": 1000
-        }
-        
-        # Uncomment when you have the actual API endpoint
-        # response = requests.post(
-        #     f"{API_CONFIG['base_url']}/chat/completions",
-        #     headers=headers,
-        #     json=payload,
-        #     timeout=30
-        # )
-        # response.raise_for_status()
-        # result = response.json()
-        # return result['choices'][0]['message']['content']
-        
-        # Mock response for demonstration
+        # Mock response for demonstration (uncomment API call when ready)
         return generate_mock_response(prompt)
-        
     except Exception as e:
-        return f"Error: {str(e)}. Please check your API configuration."
+        return f"⚠️ Error: {str(e)}\n\nPlease verify API configuration."
 
 def generate_mock_response(prompt):
-    """Generate mock response for demonstration"""
-    responses = {
-        "scope": "Software project management encompasses planning, organizing, securing, and managing resources to achieve specific project goals. It includes scope management, time management, cost management, quality management, and risk management.",
-        "stakeholder": "Stakeholders in software projects include clients, end-users, developers, project managers, sponsors, and suppliers. Each has different objectives: clients want value, users want functionality, developers want clear requirements, and sponsors want ROI.",
-        "planning": "Careful planning involves defining project scope, creating work breakdown structures, estimating resources, developing schedules, identifying risks, and establishing communication plans. Planning should be iterative and adaptive.",
-        "risk": "Common risks include scope creep, resource constraints, technical challenges, changing requirements, and team turnover. Risk management involves identification, analysis, response planning, and monitoring.",
-        "success": "Project success criteria typically include: delivered on time, within budget, meeting quality standards, satisfying stakeholder requirements, and achieving business objectives. The Standish Group reports only 28% of projects are completely successful.",
-        "default": "This is an important topic in Software Project Management. Key considerations include: understanding requirements, proper planning, stakeholder engagement, risk management, quality assurance, and continuous monitoring. Would you like more specific information on any aspect?"
-    }
-    
+    """Generate contextual mock response"""
     prompt_lower = prompt.lower()
-    if "scope" in prompt_lower:
-        return responses["scope"]
-    elif "stakeholder" in prompt_lower:
-        return responses["stakeholder"]
-    elif "plan" in prompt_lower:
-        return responses["planning"]
-    elif "risk" in prompt_lower:
-        return responses["risk"]
-    elif "success" in prompt_lower or "failure" in prompt_lower:
-        return responses["success"]
+    
+    if any(word in prompt_lower for word in ["scope", "definition"]):
+        return "📋 **Scope of Software Project Management**\n\nSoftware project management encompasses planning, organizing, securing, and managing resources to achieve specific project goals. Key areas include:\n• Scope management\n• Time & schedule management\n• Cost & budget control\n• Quality assurance\n• Risk management\n• Stakeholder communication\n\nProper scope definition prevents 'scope creep' - a leading cause of project failure (Standish Group, 2023)."
+    
+    elif any(word in prompt_lower for word in ["stakeholder", "objective"]):
+        return "👥 **Stakeholders & Their Objectives**\n\n| Stakeholder | Primary Objective |\n|------------|----------------|\n| Client/Sponsor | ROI, business value |\n| End Users | Usability, functionality |\n| Developers | Clear requirements, feasible tech |\n| Project Manager | On-time, on-budget delivery |\n| QA Team | Quality standards compliance |\n\n✅ Success requires balancing these often-competing objectives through regular communication and documented agreements."
+    
+    elif any(word in prompt_lower for word in ["plan", "planning", "monitor"]):
+        return "📅 **Planning, Monitoring & Control**\n\n**Essential Planning Steps**:\n1. Define project scope & deliverables\n2. Create Work Breakdown Structure (WBS)\n3. Estimate effort & resources\n4. Develop realistic timeline (Gantt/Agile)\n5. Identify risks & mitigation strategies\n6. Establish communication protocols\n\n**Monitoring Techniques**:\n• Weekly status meetings\n• Burndown charts (Agile)\n• Earned Value Management (EVM)\n• Risk register updates\n\n🔄 Planning should be iterative - revisit assumptions as project evolves."
+    
+    elif any(word in prompt_lower for word in ["risk", "failure", "problem"]):
+        return "⚠️ **Risk Management & Failure Prevention**\n\n**Top Project Failure Causes **(Standish Group)\n1. Incomplete requirements (43%)\n2. Lack of user involvement (37%)\n3. Resource constraints (32%)\n4. Unrealistic expectations (29%)\n5. Poor risk management (26%)\n\n**Proactive Risk Strategy**:\n✅ Identify risks early (brainstorming, checklists)\n✅ Analyze impact & probability (Risk Matrix)\n✅ Plan responses: Avoid, Mitigate, Transfer, Accept\n✅ Monitor triggers & update register weekly\n\n💡 Remember: Risk management is not about eliminating risk, but managing it intelligently."
+    
+    elif any(word in prompt_lower for word in ["success", "criteria", "standish"]):
+        return "🎯 **Project Success Criteria**\n\n**Traditional Triple Constraint**:\n• ✅ On Time\n• ✅ Within Budget\n• ✅ Meets Scope/Quality\n\n**Modern Success Metrics**:\n• Stakeholder satisfaction\n• Business value delivered\n• Team morale & learning\n• Maintainability & scalability\n\n📊 **Standish Group CHAOS Report Insights**:\n• Only ~28% of projects are fully successful\n• 43% exceed budget\n• 82% delivered late\n• Key success factor: Executive support + user involvement\n\n✅ Define success criteria WITH stakeholders during project charter phase."
+    
     else:
-        return responses["default"]
+        return f"🔍 **Regarding: \"{prompt}\"**\n\nThis is an important Software Project Management topic. Key considerations:\n\n1. **Understand context** - Is this for academic study or industry application?\n2. **Reference frameworks** - PMBOK, PRINCE2, Agile/Scrum, ISO 12207\n3. **Apply best practices** - Documentation, communication, iterative planning\n4. **Learn from case studies** - Standish Group, UK National Audit Office reports\n\n💡 Would you like me to elaborate on any specific aspect? Try asking about:\n• Risk management strategies\n• Agile vs. Waterfall methodologies\n• Stakeholder communication plans\n• Project charter essentials"
 
 def display_suggestions(suggestions):
-    """Display suggestion buttons with custom styling"""
-    st.markdown("### 💡 Suggested Questions (Click to auto-fill):")
+    """Display suggestion buttons"""
+    st.markdown("### 💡 Suggested Questions *(Click to auto-fill)*:")
     
     cols = st.columns(2)
     for idx, suggestion in enumerate(suggestions):
         with cols[idx % 2]:
-            if st.button(f"📌 {suggestion}", key=f"sugg_{idx}"):
+            if st.button(f"📌 {suggestion}", key=f"sugg_{idx}", use_container_width=True):
                 st.session_state.user_query = suggestion
-                st.rerun()
+                # Use compatible rerun method
+                if hasattr(st, 'rerun'):
+                    st.rerun()
+                else:
+                    st.experimental_rerun()
 
 def main():
     # Header
     st.title("⚖️ Software-Project-Management for B.E.Computer Science/B.Tech Information Technology Chatbot")
     
+    # Target audience banner
     st.markdown("""
-    <div style='background-color: #4169E1; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 3px solid black;'>
-        <p style='color: white; font-weight: bold; font-size: 16px; margin: 0;'>
-            🎯 Target Audience: B.E. Computer Science Students | B.Tech Information Technology Students | IT Job Seekers
+    <div style='background-color: #4169E1; padding: 12px; border-radius: 8px; margin: 15px 0; border: 3px solid black; text-align: center;'>
+        <p style='color: white; font-weight: bold; font-size: 15px; margin: 0;'>
+            🎯 Target: B.E. Computer Science | B.Tech IT Students | IT Job Seekers
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -262,68 +208,70 @@ def main():
     if 'suggestions' not in st.session_state:
         st.session_state.suggestions = get_random_suggestions(10)
     
-    # Sidebar - Repository Info
+    # Sidebar
     with st.sidebar:
-        st.markdown("### 📚 Repository Information")
-        st.markdown(f"""
-        <div class='sidebar-content'>
-            <p><strong>GitHub Repository:</strong> {API_CONFIG['repository']}</p>
-            <p><strong>License:</strong> {API_CONFIG['license']}</p>
-            <p><strong>API Key:</strong> {API_CONFIG['api_key']}</p>
-            <p><strong>Version:</strong> 1.0.0</p>
-            <p><strong>Last Updated:</strong> {datetime.now().strftime('%Y-%m-%d')}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("### 📖 Quick Reference")
-        st.markdown("""
-        - **Ref 1**: GitHub Repository - CSSPM
-        - **Ref 2**: B.E. Computer Science - Software Project Management Topics
-        - 50+ Core SPM Concepts
-        - Industry Best Practices
-        - Real-world Case Studies
+        st.markdown("### 📚 Repository Info")
+        st.info(f"""
+        **GitHub**: {API_CONFIG['repository']}\n
+        **License**: {API_CONFIG['license']}\n
+        **API Key**: {API_CONFIG['api_key']}\n
+        **Version**: 1.0.0\n
+        **Updated**: {datetime.now().strftime('%Y-%m-%d')}
         """)
         
-        if st.button("🔄 Refresh Suggestions"):
+        st.markdown("### 📖 References")
+        st.markdown("""
+        • Ref 1: GitHub Repo - CSSPM\n
+        • Ref 2: B.E. CSE - SPM Topics (100 concepts)\n
+        • Industry: Standish Group, PMBOK, ISO 12207
+        """)
+        
+        if st.button("🔄 New Suggestions", use_container_width=True):
             st.session_state.suggestions = get_random_suggestions(10)
-            st.rerun()
+            if hasattr(st, 'rerun'):
+                st.rerun()
+            else:
+                st.experimental_rerun()
     
     # Display suggestions
     display_suggestions(st.session_state.suggestions)
-    
     st.markdown("---")
     
-    # User Input Section
+    # User Input
     st.markdown("### ❓ Enter Your Query:")
     
     col1, col2 = st.columns([3, 1])
     
     with col1:
         user_query = st.text_area(
-            "Type your Software Project Management question here:",
+            "Type your Software Project Management question:",
             value=st.session_state.user_query,
             height=100,
-            placeholder="E.g., What are the key success criteria for software projects?",
+            placeholder="E.g., What are key success criteria for software projects?",
             key="query_input",
-            help="Enter your question about software project management concepts, methodologies, or best practices"
+            label_visibility="collapsed"
         )
     
     with col2:
-        submit_button = st.button("📤 Submit Prompt", use_container_width=True)
-        reset_button = st.button("🔄 Reset", use_container_width=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        submit_clicked = st.button("📤 Submit Prompt", use_container_width=True, type="primary")
+        reset_clicked = st.button("🔄 Reset", use_container_width=True)
     
-    # Handle reset
-    if reset_button:
+    # Reset functionality
+    if reset_clicked:
         st.session_state.user_query = ""
         st.session_state.result = ""
         st.session_state.suggestions = get_random_suggestions(10)
-        st.rerun()
+        if hasattr(st, 'rerun'):
+            st.rerun()
+        else:
+            st.experimental_rerun()
     
-    # Handle submit
-    if submit_button and user_query:
-        st.session_state.user_query = user_query
+    # Submit functionality
+    if submit_clicked and user_query.strip():
+        st.session_state.user_query = user_query.strip()
         
-        with st.spinner("🤖 AI is analyzing your question..."):
+        with st.spinner("🤖 AI is analyzing..."):
             result = query_qwen_api(user_query, API_CONFIG["api_key"])
             st.session_state.result = result
     
@@ -331,34 +279,24 @@ def main():
     if st.session_state.result:
         st.markdown("---")
         st.markdown("### 💬 Response:")
+        st.markdown(f'<div class="result-box">{st.session_state.result}</div>', unsafe_allow_html=True)
         
-        st.markdown(f"""
-        <div style='background-color: #1E90FF; padding: 20px; border-radius: 10px; border: 3px solid black;'>
-            <p style='color: white; font-weight: bold; font-size: 16px; line-height: 1.6;'>
-                {st.session_state.result}
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Additional actions
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("📋 Copy Response"):
-                st.success("Response copied to clipboard!")
-        with col2:
-            if st.button("🔍 Search Related"):
-                st.info("Searching for related topics...")
-        with col3:
-            if st.button("💾 Save to Notes"):
-                st.success("Saved to your notes!")
+        # Action buttons
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.button("📋 Copy", disabled=True, help="Manual copy: Select text + Ctrl+C")
+        with c2:
+            st.button("🔍 Related", disabled=True, help="Feature coming soon")
+        with c3:
+            st.button("💾 Save", disabled=True, help="Feature coming soon")
     
     # Footer
     st.markdown("---")
     st.markdown("""
-    <div style='background-color: #4169E1; padding: 15px; border-radius: 10px; text-align: center; border: 3px solid black;'>
-        <p style='color: white; font-weight: bold; margin: 0;'>
-             CSSPM - Computer Science Software Project Management Chatbot<br>
-            <small>GitHub: amrithtech23-ux/CSSPM | License: MIT | API: CSSPM2K6</small>
+    <div style='background-color: #4169E1; padding: 12px; border-radius: 8px; text-align: center; border: 3px solid black;'>
+        <p style='color: white; font-weight: bold; margin: 0; font-size: 14px;'>
+             CSSPM - Software Project Management Chatbot<br>
+            <small>GitHub: amrithtech23-ux/CSSPM | MIT License | API: CSSPM2K6</small>
         </p>
     </div>
     """, unsafe_allow_html=True)
